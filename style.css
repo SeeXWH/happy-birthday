@@ -25,12 +25,10 @@ h1 { font-family: 'Pacifico', cursive; font-size: 3em; font-weight: 400; margin-
 p { font-size: 1.2em; line-height: 1.6; }
 button { font-family: 'Comfortaa', cursive; margin-top: 30px; padding: 15px 30px; font-size: 1.2em; color: #fff; background: transparent; border: 2px solid #ff4081; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; text-shadow: 0 0 5px #ff4081; }
 button:hover { background: #ff4081; box-shadow: 0 0 20px #ff4081; }
-#sound-toggle { position: fixed; top: 20px; right: 20px; z-index: 100; padding: 10px; font-size: 1.5em; border-radius: 50%; width: 50px; height: 50px; text-align: center; border: 2px solid #fff; background: rgba(0,0,0,0.3); color: #fff; cursor: pointer; }
 
 /* --- Объекты Вселенной --- */
 .celestial-object { position: absolute; cursor: pointer; transform: scale(0); opacity: 0; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease, filter 0.3s ease; }
 .celestial-object.visible { transform: scale(1); opacity: 1; }
-/* РЕШЕНИЕ бага (часть 1): Убираем !important, он нам больше не нужен */
 .celestial-object:hover { transform: scale(1.15); filter: drop-shadow(0 0 15px #fff); }
 .celestial-object.visited { filter: grayscale(80%) opacity(50%); transform: scale(0.9); }
 
@@ -48,33 +46,10 @@ button:hover { background: #ff4081; box-shadow: 0 0 20px #ff4081; }
 @keyframes pulse { 0% { transform: scale(0.95); } 70% { transform: scale(1.1); } 100% { transform: scale(0.95); } }
 
 /* Финальная звезда */
-.final-star {
-    width: 120px; height: 120px;
-    background: #fff; border-radius: 50%;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0;
-    z-index: 20;
-    /* РЕШЕНИЕ бага (часть 2): Добавляем плавный transition для ховера */
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-.final-star.visible {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-    animation: finalStarAppear 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
-@keyframes finalStarAppear {
-    0% { transform: translate(-50%, -50%) scale(0); box-shadow: 0 0 0 #fff; opacity: 0; }
-    30% { transform: translate(-50%, -50%) scale(1.5); box-shadow: 0 0 100px #fff, 0 0 200px #fff, 0 0 300px #ffdd00; opacity: 1; }
-    60% { transform: translate(-50%, -50%) scale(0.9); box-shadow: 0 0 50px #fff, 0 0 100px #ffdd00, 0 0 150px #ff8a65; }
-    100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 40px #fff, 0 0 80px #ffdd00, 0 0 120px #ff8a65; }
-}
-
-/* РЕШЕНИЕ бага (часть 3): Создаем отдельное, неконфликтное правило для ховера */
-.final-star:hover {
-    transform: translate(-50%, -50%) scale(1.15); /* Сохраняем translate и меняем только scale */
-    box-shadow: 0 0 50px #fff, 0 0 120px #ffdd00, 0 0 200px #ff8a65; /* Делаем свечение чуть ярче */
-}
+.final-star { width: 120px; height: 120px; background: #fff; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); opacity: 0; z-index: 20; transition: transform 0.4s ease, box-shadow 0.4s ease; }
+.final-star.visible { opacity: 1; transform: translate(-50%, -50%); animation: finalStarAppear 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+@keyframes finalStarAppear { 0% { transform: translate(-50%, -50%) scale(0); box-shadow: 0 0 0 #fff; opacity: 0; } 30% { transform: translate(-50%, -50%) scale(1.5); box-shadow: 0 0 100px #fff, 0 0 200px #fff, 0 0 300px #ffdd00; opacity: 1; } 60% { transform: translate(-50%, -50%) scale(0.9); box-shadow: 0 0 50px #fff, 0 0 100px #ffdd00, 0 0 150px #ff8a65; } 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 40px #fff, 0 0 80px #ffdd00, 0 0 120px #ff8a65; } }
+.final-star:hover { transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 0 50px #fff, 0 0 120px #ffdd00, 0 0 200px #ff8a65; }
 
 /* Модальное окно */
 #modal-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: none; justify-content: center; align-items: center; z-index: 200; }
@@ -102,6 +77,5 @@ button:hover { background: #ff4081; box-shadow: 0 0 20px #ff4081; }
     @keyframes orbit1 { 0% { transform: translateX(0); } 50% { transform: translateX(40px); z-index: 1;} 50.1% {z-index: -1;} 100% { transform: translateX(0); } }
     @keyframes orbit2 { 0% { transform: translateX(60px); z-index: -1;} 50% { transform: translateX(0); z-index: -1;} 50.1% {z-index: 1;} 100% { transform: translateX(60px); } }
     .heart-nebula { top: 50%; left: 10%; }
-    /* Ховер для финальной звезды на мобилках */
     .final-star:hover { transform: translate(-50%, -50%) scale(1.1); }
 }

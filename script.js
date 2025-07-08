@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const finalStar = document.getElementById('final-star');
     const starsContainer = document.getElementById('stars-container');
     const startBtn = document.getElementById('start-journey-btn');
-    const soundBtn = document.getElementById('sound-toggle');
-    const backgroundMusic = document.getElementById('background-music');
     const modalContainer = document.getElementById('modal-container');
     const modalCloseBtn = document.querySelector('.modal-close-btn');
     const modalImage = document.getElementById('modal-image');
@@ -27,45 +25,40 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- Функция для создания звезд и комет ---
-function createBackgroundElements() {
-    const starsCount = 200;
-    const cometsCount = 7;
-
-    // Создаем статичные звезды
-    for (let i = 0; i < starsCount; i++) {
-        const star = document.createElement('div');
-        // ПРАВКА №2: Добавляем класс для анимации мерцания из CSS
-        star.classList.add('static-star'); 
-        star.style.position = 'absolute';
-        star.style.width = `${Math.random() * 2 + 0.5}px`;
-        star.style.height = star.style.width;
-        star.style.borderRadius = '50%';
-        star.style.background = '#fff';
-        star.style.top = `${Math.random() * 100}%`;
-        star.style.left = `${Math.random() * 100}%`;
-        // Задаем случайную задержку анимации, чтобы они мерцали вразнобой
-        star.style.animationDelay = `${Math.random() * 4}s`;
-        starsContainer.appendChild(star);
+    function createBackgroundElements() {
+        const starsCount = 200;
+        const cometsCount = 7;
+        for (let i = 0; i < starsCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('static-star'); 
+            star.style.position = 'absolute';
+            star.style.width = `${Math.random() * 2 + 0.5}px`;
+            star.style.height = star.style.width;
+            star.style.borderRadius = '50%';
+            star.style.background = '#fff';
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 4}s`;
+            starsContainer.appendChild(star);
+        }
+        for (let i = 0; i < cometsCount; i++) {
+            const comet = document.createElement('div');
+            comet.classList.add('comet');
+            comet.style.top = `${Math.random() * 100}vh`;
+            comet.style.left = `${Math.random() * 100}vw`;
+            comet.style.animationDelay = `${Math.random() * 10}s`;
+            comet.style.animationDuration = `${5 + Math.random() * 5}s`;
+            starsContainer.appendChild(comet);
+        }
     }
-
-    // Создаем кометы (без изменений)
-    for (let i = 0; i < cometsCount; i++) {
-        const comet = document.createElement('div');
-        comet.classList.add('comet');
-        comet.style.top = `${Math.random() * 100}vh`;
-        comet.style.left = `${Math.random() * 100}vw`;
-        comet.style.animationDelay = `${Math.random() * 10}s`;
-        comet.style.animationDuration = `${5 + Math.random() * 5}s`;
-        starsContainer.appendChild(comet);
-    }
-}
-
+    
     // --- Логика "Большого взрыва" ---
     startBtn.addEventListener('click', () => {
-        if (!isMusicPlaying) soundBtn.click();
         introScreen.style.opacity = '0';
         setTimeout(() => introScreen.classList.remove('visible'), 1000);
+        
         bigBangFlash.classList.add('explode');
+        
         setTimeout(() => {
             universeWrapper.classList.add('visible');
             createBackgroundElements();
@@ -78,23 +71,9 @@ function createBackgroundElements() {
         }, 300);
     });
 
-    // --- РЕШАЮЩЕЕ ИСПРАВЛЕНИЕ №2 ---
-    // Слушаем, когда анимация взрыва закончится, и убираем элемент
+    // Убираем вспышку после анимации
     bigBangFlash.addEventListener('animationend', () => {
         bigBangFlash.style.display = 'none';
-    });
-
-    // --- Управление музыкой ---
-    let isMusicPlaying = false;
-    soundBtn.addEventListener('click', () => {
-        if (isMusicPlaying) {
-            backgroundMusic.pause();
-            soundBtn.textContent = '🔇';
-        } else {
-            backgroundMusic.play().catch(error => console.log("Браузер заблокировал автовоспроизведение."));
-            soundBtn.textContent = '🔊';
-        }
-        isMusicPlaying = !isMusicPlaying;
     });
 
     // --- Логика модального окна ---

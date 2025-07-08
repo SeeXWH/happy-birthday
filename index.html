@@ -14,23 +14,28 @@
         <div id="stars-container"></div>
     </div>
     <div id="big-bang-flash"></div>
-    <button id="sound-toggle">🔊</button>
-    <audio id="background-music" src="audio/space-music.mp3" loop></audio>
+    
     <section id="intro-screen" class="screen visible">
         <div class="content">
+            <!-- ЗАМЕНИ ИМЯ -->
             <h1>Вселенная по имени Аня</h1>
             <p>Сейчас это лишь пустота. Но стоит нажать на кнопку, и ты увидишь, как она родилась для меня.</p>
             <button id="start-journey-btn">Сотворить Вселенную</button>
         </div>
     </section>
+    
+    <!-- Основной экран "Вселенной" со статичными объектами -->
     <main id="universe-map" class="screen">
         <div class="celestial-object star" id="object-smile" title="Звезда твоей улыбки"></div>
         <div class="celestial-object planet ice-planet" id="object-calm" title="Ледяная планета спокойствия"></div>
         <div class="celestial-object planet gas-giant" id="object-humor" title="Газовый гигант юмора"></div>
         <div class="celestial-object heart-nebula" id="object-romance" title="Туманность Сердца"></div>
         <div class="celestial-object binary-star" id="object-support" title="Двойная звезда поддержки"></div>
+        
+        <!-- Финальная звезда (появляется в центре) -->
         <div class="celestial-object final-star" id="final-star" title="Сердце Вселенной"></div>
     </main>
+
     <div id="modal-container">
         <div class="modal-box">
             <span class="modal-close-btn">×</span>
