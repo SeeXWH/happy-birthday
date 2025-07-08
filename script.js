@@ -69,7 +69,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }, 300);
-    });
+    });  
+
+    
 
     // Убираем вспышку после анимации
     bigBangFlash.addEventListener('animationend', () => {
