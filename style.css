@@ -1,38 +1,62 @@
-/* --- Глобальные стили и новые шрифты --- */
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Comfortaa:wght@400;700&display=swap');
+/* --- Глобальные стили --- */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Comfortaa:wght@400;700&family=Poppins:wght@400;700&display=swap');
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Comfortaa', sans-serif; background-color: #000; color: #f0f0f0; overflow: hidden; text-align: center; }
+html, body { height: 100%; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
 
-/* --- ФОНОВЫЕ ЭЛЕМЕНТЫ --- */
+/* --- Сцены --- */
+.scene { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out; background-color: #000; }
+.scene.visible { opacity: 1; visibility: visible; }
+
+/* --- АКТ I: ЭКРАН БЛОКИРОВКИ --- */
+#lockscreen-scene { background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('img/iphone-wallpaper.jpg'); background-size: cover; background-position: center; justify-content: flex-start; padding-top: 15vh; color: #fff; text-shadow: 0 1px 5px rgba(0,0,0,0.4); }
+.lockscreen-time { font-size: 80px; font-weight: 200; }
+.lockscreen-date { font-size: 22px; font-weight: 400; }
+.notifications-container { margin-top: 50px; width: 90%; max-width: 400px; display: flex; flex-direction: column; gap: 10px; }
+.notification { background: rgba(100, 100, 100, 0.4); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 20px; padding: 12px; display: flex; align-items: center; gap: 12px; text-align: left; cursor: pointer; }
+.notification-icon { width: 24px; height: 24px; font-size: 20px; display: flex; justify-content: center; align-items: center; }
+.telegram-icon { color: #2AABEE; }
+.calendar-icon { color: #FF3B30; }
+.app-name, .sender-name, .message-preview { font-size: 14px; font-weight: 400; }
+.app-name, .sender-name { font-weight: 600; }
+.message-preview { opacity: 0.9; }
+.lockscreen-footer { position: absolute; bottom: 30px; width: 100%; }
+.swipe-up-text { width: 150px; height: 5px; background: rgba(255, 255, 255, 0.8); border-radius: 5px; margin: 0 auto; animation: swipe-hint 1.5s infinite ease-in-out; }
+@keyframes swipe-hint { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+/* --- АКТ II: СЦЕНА ЧАТА --- */
+#chat-scene { background-color: #0E1621; justify-content: flex-start; }
+.chat-header { width: 100%; background: #1F2C37; padding: 15px; display: flex; align-items: center; gap: 15px; position: fixed; top: 0; z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+.chat-avatar { width: 40px; height: 40px; background-color: #6a8277; border-radius: 50%; color: #fff; font-size: 20px; font-weight: bold; display: flex; justify-content: center; align-items: center; }
+.chat-contact-name { color: #fff; font-size: 18px; font-weight: 600; }
+#chat-container { width: 100%; max-width: 800px; padding: 80px 10px 80px 10px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; height: 100%; justify-content: flex-end; }
+.chat-message { padding: 8px 12px; border-radius: 12px; max-width: 75%; opacity: 0; transform: translateY(20px); animation: message-appear 0.5s forwards; display: flex; flex-direction: column; color: #fff; position: relative; }
+@keyframes message-appear { to { opacity: 1; transform: translateY(0); } }
+.my-message { background-color: #25D366; align-self: flex-end; border-bottom-right-radius: 2px; }
+.her-message { background-color: #263846; align-self: flex-start; border-bottom-left-radius: 2px; }
+.message-text { font-size: 15px; line-height: 1.4; }
+.message-time { font-size: 11px; color: rgba(255,255,255,0.6); align-self: flex-end; margin-top: 5px; margin-left: 10px; }
+.chat-link-btn { display: inline-block; padding: 10px 15px; margin-top: 10px; background: rgba(255,255,255,0.2); border-radius: 8px; color: #58b0f1; text-decoration: none; font-weight: bold; cursor: pointer; transition: background-color 0.3s; }
+.chat-link-btn:hover { background: rgba(255,255,255,0.3); }
+#chat-reply-container { width: 100%; padding: 20px; background-color: #0E1621; border-top: 1px solid rgba(255, 255, 255, 0.1); position: absolute; bottom: 0; display: none; opacity: 0; transform: translateY(100%); transition: all 0.5s ease; }
+#chat-reply-container.visible { display: block; opacity: 1; transform: translateY(0); }
+#chat-reply-btn { width: 100%; padding: 15px; font-size: 16px; font-weight: 600; color: #58b0f1; background-color: transparent; border: none; cursor: pointer; margin: 0; border-radius: 0; }
+
+/* --- АКТ III: СЦЕНА ВСЕЛЕННОЙ --- */
+#universe-scene { background-color: transparent; font-family: 'Comfortaa', sans-serif; }
 #universe-wrapper { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: -2; background: radial-gradient(circle at 70% 30%, #4a148c 0%, #280a4a 25%, #0d0d2e 50%, #00001a 100%); opacity: 0; transition: opacity 2s ease-in-out; }
 #universe-wrapper.visible { opacity: 1; }
 #stars-container { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: -1; }
 #big-bang-flash { position: fixed; top: 50%; left: 50%; width: 2px; height: 2px; background: #fff; border-radius: 50%; transform: translate(-50%, -50%) scale(0); opacity: 1; z-index: 300; pointer-events: none; }
 #big-bang-flash.explode { animation: explode 1s ease-out forwards; }
 @keyframes explode { 0% { transform: translate(-50%, -50%) scale(0); opacity: 1; } 50% { opacity: 0.8; } 100% { transform: translate(-50%, -50%) scale(2000); opacity: 0; } }
-
-/* --- Анимации звезд и комет --- */
 .static-star { animation: twinkle 4s ease-in-out infinite; }
 @keyframes twinkle { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
 @keyframes comet-animation { 0% { transform: translateX(120vw) translateY(-20vh) scale(0.5); opacity: 0.8; } 50% { opacity: 1; } 100% { transform: translateX(-20vw) translateY(120vh) scale(1.2); opacity: 0; } }
 .comet { position: absolute; width: 5px; height: 5px; background: linear-gradient(to left, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%); border-radius: 50%; box-shadow: 0 0 10px #fff, 0 0 20px #fff; animation-name: comet-animation; animation-timing-function: linear; animation-iteration-count: infinite; transform: rotate(45deg); pointer-events: none; }
-
-/* --- Экраны и общие элементы --- */
-.screen { position: absolute; top: 0; left: 0; width: 100%; height: 100vh; display: none; justify-content: center; align-items: center; flex-direction: column; padding: 20px; transition: opacity 1s ease-in-out; opacity: 0; }
-.screen.visible { display: flex; opacity: 1; }
-.content { background: rgba(0, 0, 0, 0.5); padding: 30px; border-radius: 15px; max-width: 600px; z-index: 1; }
-h1 { font-family: 'Pacifico', cursive; font-size: 3em; font-weight: 400; margin-bottom: 20px; text-shadow: 0 0 10px #ff4081, 0 0 20px #ff4081, 0 0 30px #f8bbd0; }
-p { font-size: 1.2em; line-height: 1.6; }
-button { font-family: 'Comfortaa', cursive; margin-top: 30px; padding: 15px 30px; font-size: 1.2em; color: #fff; background: transparent; border: 2px solid #ff4081; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; text-shadow: 0 0 5px #ff4081; }
-button:hover { background: #ff4081; box-shadow: 0 0 20px #ff4081; }
-
-/* --- Объекты Вселенной --- */
 .celestial-object { position: absolute; cursor: pointer; transform: scale(0); opacity: 0; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease, filter 0.3s ease; }
 .celestial-object.visible { transform: scale(1); opacity: 1; }
 .celestial-object:hover { transform: scale(1.15); filter: drop-shadow(0 0 15px #fff); }
 .celestial-object.visited { filter: grayscale(80%) opacity(50%); transform: scale(0.9); }
-
-/* Стили и позиции объектов */
 .star { width: 50px; height: 50px; background: #fff5cc; border-radius: 50%; box-shadow: 0 0 20px #fff, 0 0 40px #ffdd00, 0 0 60px #ff9800; top: 15%; left: 15%; animation: pulse 2s infinite; }
 .ice-planet { width: 70px; height: 70px; background: radial-gradient(circle, #e0f7fa, #80deea, #00acc1); border-radius: 50%; box-shadow: 0 0 30px #4dd0e1; top: 75%; left: 20%; }
 .gas-giant { width: 120px; height: 120px; background: linear-gradient(135deg, #ffcc80 25%, #ffab40 25%, #ffab40 50%, #e65100 50%, #e65100 75%, #bf360c 75%); border-radius: 50%; top: 60%; right: 15%; }
@@ -44,14 +68,10 @@ button:hover { background: #ff4081; box-shadow: 0 0 20px #ff4081; }
 @keyframes orbit2 { 0% { transform: translateX(60px); z-index: -1;} 50% { transform: translateX(0); z-index: -1;} 50.1% {z-index: 1;} 100% { transform: translateX(60px); } }
 .heart-nebula { width: 150px; height: 150px; background: radial-gradient(circle, #f8bbd0, #f06292, #ec407a, #e91e63); border-radius: 50%; filter: blur(25px); clip-path: polygon(50% 100%, 83% 75%, 100% 40%, 90% 5%, 50% 25%, 10% 5%, 0% 40%, 17% 75%); top: 45%; left: 10%; }
 @keyframes pulse { 0% { transform: scale(0.95); } 70% { transform: scale(1.1); } 100% { transform: scale(0.95); } }
-
-/* Финальная звезда */
 .final-star { width: 120px; height: 120px; background: #fff; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); opacity: 0; z-index: 20; transition: transform 0.4s ease, box-shadow 0.4s ease; }
 .final-star.visible { opacity: 1; transform: translate(-50%, -50%); animation: finalStarAppear 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 @keyframes finalStarAppear { 0% { transform: translate(-50%, -50%) scale(0); box-shadow: 0 0 0 #fff; opacity: 0; } 30% { transform: translate(-50%, -50%) scale(1.5); box-shadow: 0 0 100px #fff, 0 0 200px #fff, 0 0 300px #ffdd00; opacity: 1; } 60% { transform: translate(-50%, -50%) scale(0.9); box-shadow: 0 0 50px #fff, 0 0 100px #ffdd00, 0 0 150px #ff8a65; } 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 40px #fff, 0 0 80px #ffdd00, 0 0 120px #ff8a65; } }
 .final-star:hover { transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 0 50px #fff, 0 0 120px #ffdd00, 0 0 200px #ff8a65; }
-
-/* Модальное окно */
 #modal-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: none; justify-content: center; align-items: center; z-index: 200; }
 .modal-box { background: #fff; color: #333; padding: 30px; border-radius: 10px; max-width: 500px; width: 90%; position: relative; animation: fadeInModal 0.5s ease; }
 .modal-close-btn { position: absolute; top: 10px; right: 20px; font-size: 2em; cursor: pointer; color: #aaa; }
@@ -63,32 +83,7 @@ button:hover { background: #ff4081; box-shadow: 0 0 20px #ff4081; }
 
 /* Адаптация */
 @media (max-width: 768px) {
-    h1 { font-size: 2em; }
-    p { font-size: 1em; }
-    .celestial-object { transform: scale(0.7); }
-    .celestial-object.visible { transform: scale(0.7); }
-    .celestial-object:hover { transform: scale(0.8); }
-
-    /* Позиции для мобильных */
-    .star { top: 10%; left: 10%; }
-    .ice-planet { top: 80%; left: 5%; }
-    .gas-giant { top: 60%; right: 5%; }
-    
-    .binary-star { top: 15%; right: 10%; width: 80px; height: 40px; }
-    .binary-star::before { width: 40px; height: 40px; }
-    .binary-star::after { width: 30px; height: 30px; }
-    /* Для мобилок анимация орбит остается прежней, но сами размеры звезд меньше */
-    @keyframes orbit1 { 0% { transform: translateX(0); } 50% { transform: translateX(40px); z-index: 1;} 50.1% {z-index: -1;} 100% { transform: translateX(0); } }
-    @keyframes orbit2 { 0% { transform: translateX(60px); z-index: -1;} 50% { transform: translateX(0); z-index: -1;} 50.1% {z-index: 1;} 100% { transform: translateX(60px); } }
-
-    /* ПРАВКА: Двигаем сердце чуть ниже, чтобы освободить место */
-    .heart-nebula { top: 50%; left: 10%; }
-
-    /* ПРАВКА: Поднимаем финальную звезду ВЫШЕ центра */
-    .final-star {
-        top: 40%; /* Вместо 50% */
-    }
-    .final-star:hover {
-        transform: translate(-50%, -50%) scale(1.1);
-    }
+    .lockscreen-time { font-size: 70px; }
+    .lockscreen-date { font-size: 20px; }
+    #universe-scene { transform: scale(0.7); transform-origin: center; }
 }
