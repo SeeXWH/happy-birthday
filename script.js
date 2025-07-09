@@ -3,19 +3,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const lockscreenScene = document.getElementById('lockscreen-scene');
     const chatScene = document.getElementById('chat-scene');
     const universeScene = document.getElementById('universe-scene');
-    const sketchScene = document.getElementById('sketch-scene');
 
-    // Звуки
+    // Звуковые эффекты
     const unlockSound = document.getElementById('unlock-sound');
     const notificationSound = document.getElementById('notification-sound');
     const magicSound = document.getElementById('magic-sound');
+    const clickSound = document.getElementById('click-sound'); // Универсальный звук клика
 
     // Элементы чата
     const chatContainer = document.getElementById('chat-container');
     const chatReplyContainer = document.getElementById('chat-reply-container');
     const chatReplyBtn = document.getElementById('chat-reply-btn');
 
-    // Элементы вселенной (ищем внутри #universe-scene)
+    // Элементы вселенной
     const universeWrapper = document.querySelector('#universe-scene #universe-wrapper');
     const bigBangFlash = document.querySelector('#universe-scene #big-bang-flash');
     const starsContainer = document.querySelector('#universe-scene #stars-container');
@@ -46,9 +46,20 @@ document.addEventListener('DOMContentLoaded', () => {
         'final-star': { title: 'Сердце Вселенной', text: 'Это был мой сон. Но он - лишь отражение того, какая ты на самом деле. Удивительная.', image: 'img/our-photo.jpg' }
     };
 
+    const smileQuotes = [
+        "Помню, как ты улыбнулась в тот день на лавочке... Кажется, тогда я и влюбился.",
+        "Твоя улыбка способна разогнать любые тучи.",
+        "Когда ты улыбаешься, весь мир становится теплее.",
+        "Ради этой улыбки я готов на всё."
+    ];
+
     // --- ОБЩАЯ ЛОГИКА ---
     function switchScene(hideScene, showScene) {
         hideScene.style.opacity = '0';
+        if (hideScene.id === 'universe-scene') {
+            universeWrapper.classList.remove('visible');
+        }
+
         setTimeout(() => {
             hideScene.classList.remove('visible');
             showScene.classList.add('visible');
@@ -172,20 +183,40 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     modalCloseBtn.addEventListener('click', closeModal);
     modalContainer.addEventListener('click', (e) => { if (e.target === modalContainer) closeModal(); });
+
     const visitedObjects = new Set();
     celestialObjects.forEach(obj => {
         if (obj.id === 'final-star') return;
         obj.addEventListener('click', () => {
             if (obj.classList.contains('visited')) return;
+
+            if (clickSound) {
+                clickSound.currentTime = 0;
+                clickSound.play();
+            }
+
             obj.classList.add('visited');
             visitedObjects.add(obj.id);
             openModal(obj.id);
             if (visitedObjects.size === celestialObjects.length - 1) {
-                setTimeout(() => { finalStar.classList.add('visible'); }, 1500);
+                setTimeout(() => {
+                    finalStar.classList.add('visible');
+                    if (clickSound) {
+                        clickSound.currentTime = 0;
+                        clickSound.play();
+                    }
+                }, 1500);
             }
         });
     });
-    finalStar.addEventListener('click', () => { openModal('final-star'); });
+
+    finalStar.addEventListener('click', () => {
+        if (clickSound) {
+            clickSound.currentTime = 0;
+            clickSound.play();
+        }
+        openModal('final-star');
+    });
 
     // --- Инициализация ---
     lockscreenScene.classList.add('visible');
