@@ -3,20 +3,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const lockscreenScene = document.getElementById('lockscreen-scene');
     const chatScene = document.getElementById('chat-scene');
     const universeScene = document.getElementById('universe-scene');
+    const sketchScene = document.getElementById('sketch-scene');
 
+    // Звуки
     const unlockSound = document.getElementById('unlock-sound');
     const notificationSound = document.getElementById('notification-sound');
     const magicSound = document.getElementById('magic-sound');
 
-    // --- Элементы чата ---
+    // Элементы чата
     const chatContainer = document.getElementById('chat-container');
     const chatReplyContainer = document.getElementById('chat-reply-container');
     const chatReplyBtn = document.getElementById('chat-reply-btn');
-    
-    // --- Элементы вселенной ---
-    const universeWrapper = document.getElementById('universe-wrapper');
-    const bigBangFlash = document.getElementById('big-bang-flash');
-    const starsContainer = document.getElementById('stars-container');
+
+    // Элементы вселенной (ищем внутри #universe-scene)
+    const universeWrapper = document.querySelector('#universe-scene #universe-wrapper');
+    const bigBangFlash = document.querySelector('#universe-scene #big-bang-flash');
+    const starsContainer = document.querySelector('#universe-scene #stars-container');
     const celestialObjects = document.querySelectorAll('#universe-scene .celestial-object');
     const finalStar = document.getElementById('final-star');
     const modalContainer = document.getElementById('modal-container');
@@ -50,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             hideScene.classList.remove('visible');
             showScene.classList.add('visible');
+
             if (showScene.id === 'chat-scene') startChatScene();
             if (showScene.id === 'universe-scene') startUniverseScene();
             // if (showScene.id === 'sketch-scene') startSketchScene(); // Задел на будущее
@@ -65,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- АКТ II: ЧАТ ---
     let currentMessageIndex = 0;
     function startChatScene() { playNextMessage(); }
+
     function playNextMessage() {
         if (currentMessageIndex >= chatScript.length) return;
         const messageData = chatScript[currentMessageIndex];
@@ -77,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentMessageIndex++;
         setTimeout(playNextMessage, 1500);
     }
+
     chatReplyBtn.addEventListener('click', () => {
         chatReplyContainer.classList.remove('visible');
         currentMessageIndex++;
@@ -86,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             playNextMessage();
         }, 1000);
     });
+
     function appendMessage(messageData) {
         const messageElement = document.createElement('div');
         messageElement.classList.add('chat-message', messageData.type === 'my' ? 'my-message' : 'her-message');
@@ -128,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 300);
     }
     function createBackgroundElements() {
+        starsContainer.innerHTML = '';
         const starsCount = 200;
         const cometsCount = 7;
         for (let i = 0; i < starsCount; i++) {
@@ -159,8 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModal = () => {
         modalContainer.style.display = 'none';
         if (modalTitle.textContent === contentData['final-star'].title) {
-             // Здесь будет переход к Акту IV
-             alert("Конец третьей части. Переход к финальной сцене...");
+            alert("Здесь будет переход к финальной сцене!");
+            // switchScene(universeScene, sketchScene);
         }
     };
     modalCloseBtn.addEventListener('click', closeModal);
@@ -180,7 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     finalStar.addEventListener('click', () => { openModal('final-star'); });
 
-    // --- Запускаем первую сцену ---
-     initLockscreen(); // Раскомментируй для запуска с самого начала
-    //startUniverseScene(); // Временно для быстрой разработки этой сцены
+    // --- Инициализация ---
+    lockscreenScene.classList.add('visible');
 });

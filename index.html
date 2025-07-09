@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Для тебя</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Comfortaa:wght@400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Pacifico&family=Comfortaa:wght@400;700&family=Poppins:wght@400;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
 
-    <!-- Звуковые эффекты -->
     <audio id="unlock-sound" src="audio/iphone-unlock.mp3"></audio>
     <audio id="notification-sound" src="audio/notification.mp3"></audio>
     <audio id="magic-sound" src="audio/magic-transition.mp3"></audio>
 
-    <!-- АКТ I: Экран блокировки -->
     <section id="lockscreen-scene" class="scene visible">
         <div class="lockscreen-time">08:30</div>
         <div class="lockscreen-date">среда, 16 июля</div>
@@ -44,7 +46,6 @@
         </div>
     </section>
 
-    <!-- АКТ II: Сцена чата -->
     <section id="chat-scene" class="scene">
         <div class="chat-header">
             <div class="chat-avatar">А</div>
@@ -56,23 +57,17 @@
         </div>
     </section>
 
-    <!-- АКТ III: Сцена Вселенной -->
     <main id="universe-scene" class="scene">
-        <!-- Фоны и эффекты для этой сцены -->
         <div id="universe-wrapper">
             <div id="stars-container"></div>
         </div>
         <div id="big-bang-flash"></div>
-
-        <!-- Объекты вселенной -->
         <div class="celestial-object star" id="object-smile" title="Звезда твоей улыбки"></div>
         <div class="celestial-object planet ice-planet" id="object-calm" title="Ледяная планета спокойствия"></div>
         <div class="celestial-object planet gas-giant" id="object-humor" title="Газовый гигант юмора"></div>
         <div class="celestial-object heart-nebula" id="object-romance" title="Туманность Сердца"></div>
         <div class="celestial-object binary-star" id="object-support" title="Двойная звезда поддержки"></div>
         <div class="celestial-object final-star" id="final-star" title="Сердце Вселенной"></div>
-        
-        <!-- Модальное окно для планет -->
         <div id="modal-container">
             <div class="modal-box">
                 <span class="modal-close-btn">×</span>
@@ -83,9 +78,9 @@
         </div>
     </main>
 
-    <!-- АКТ IV (пока не используется) -->
     <section id="sketch-scene" class="scene"></section>
 
     <script src="script.js"></script>
 </body>
+
 </html>
