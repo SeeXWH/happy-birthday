@@ -1010,7 +1010,6 @@ body {
 .bird {
     position: absolute;
     width: 25px;
-    /* ИЗМЕНЕНИЕ: Уменьшил ширину для лучшего вида */
     height: auto;
     left: -40px;
     animation-timing-function: linear;
@@ -1021,7 +1020,6 @@ body {
     width: 100%;
     height: 100%;
     animation: flap 0.5s ease-in-out infinite alternate;
-    /* Добавил анимацию взмаха крыльев */
 }
 
 .bird svg path {
@@ -1038,7 +1036,6 @@ body {
     }
 }
 
-/* Разные траектории полета */
 @keyframes fly-path-1 {
     0% {
         transform: translateX(0) translateY(0) rotate(0);
@@ -1244,5 +1241,15 @@ body {
 
     .quote-text {
         font-size: 1.5em;
+    }
+
+    /* --- ИСПРАВЛЕНИЕ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ --- */
+    .quote-container {
+        top: 62%;
+        /* Позиционируем от верха, а не от низа */
+        bottom: auto;
+        /* Отключаем позиционирование от низа */
+        transform: translateX(-50%);
+        /* Оставляем только горизонтальное выравнивание */
     }
 }
