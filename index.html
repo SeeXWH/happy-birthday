@@ -10,18 +10,23 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Pacifico&family=Comfortaa:wght@400;700&family=Poppins:wght@400;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Подключаем новые CSS файлы -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/planet-smile.css">
+    <link rel="stylesheet" href="css/planet-calm.css">
 </head>
 
 <body>
 
-    <audio id="unlock-sound" src="audio/iphone-unlock.mp3"></audio>
-    <audio id="notification-sound" src="audio/notification.mp3"></audio>
-    <audio id="magic-sound" src="audio/magic-transition.mp3"></audio>
-    <audio id="click-sound" src="audio/chime.mp3"></audio>
-    <audio id="crystal-sound" src="audio/crystal-chime.mp3"></audio>
+    <audio id="unlock-sound" src="assets/audio/iphone-unlock.mp3"></audio>
+    <audio id="notification-sound" src="assets/audio/notification.mp3"></audio>
+    <audio id="magic-sound" src="assets/audio/magic-transition.mp3"></audio>
+    <audio id="click-sound" src="assets/audio/chime.mp3"></audio>
+    <audio id="crystal-sound" src="assets/audio/crystal-chime.mp3"></audio>
 
+    <!-- HTML-структура сцен остается без изменений -->
     <section id="lockscreen-scene" class="scene visible">
         <div class="lockscreen-time">08:30</div>
         <div class="lockscreen-date">среда, 16 июля</div>
@@ -59,7 +64,6 @@
         </div>
     </section>
 
-    <!-- СЦЕНА: ПЛАНЕТА УЛЫБКИ -->
     <section id="planet-smile-scene" class="planet-scene">
         <div class="sky">
             <div class="cloud c1"></div>
@@ -103,7 +107,6 @@
         <button id="smile-scene-back-btn" class="scene-back-btn">Вернуться во вселенную</button>
     </section>
 
-    <!-- СЦЕНА: ЛЕДЯНАЯ ПЛАНЕТА СПОКОЙСТВИЯ -->
     <section id="planet-calm-scene" class="planet-scene">
         <div class="calm-sky">
             <div class="aurora">
@@ -115,56 +118,37 @@
         </div>
         <div class="mountain mountain-far-1"></div>
         <div class="mountain mountain-far-2"></div>
-
         <div id="penguin-container"></div>
-
-        <!-- Новый сугроб, чтобы прятать пингвинов -->
         <div class="hiding-snowdrift"></div>
-
         <div class="mountain mountain-near-1"></div>
         <div class="mountain mountain-near-2"></div>
         <div class="mountain mountain-near-3"></div>
         <div id="crystal-container">
-            <div class="crystal-interactive crystal-1">
-                <svg version="1.1" id="crystal" xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" enable-background="new 0 0 256 256"
-                    xml:space="preserve">
+            <div class="crystal-interactive crystal-1"><svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 256 256">
                     <path
                         d="M211.3,86.9l-40.5,15.7l7.5-47.8L120.6,8L62.9,54.7l13.3,84.4l-35.5-13.9l-27.8,42.1l40,80.6h133.9l29.6-59.8l26.7-52.7 L211.3,86.9z M204,104.1l-0.3,21.9l-17.6-6.5L204,104.1z M81.1,238l-20.2-83l-14.8-17.2l31.9,13L91.8,238H81.1z M77,56.1l28.8-23.8 l-10.5,25L77,56.1z M140.7,238l7.1-71.3l6.3-20.1L127,162.3V238h-11.3l-9.6-178.9l14.6-38.2l47.2,37.9l-13.8,87.8l21,23.2L153,238 H140.7z M179.9,238h-8.4l42.9-107.9l-0.5-21l17.7,27L179.9,238z" />
-                </svg>
-            </div>
-            <div class="crystal-interactive crystal-2">
-                <svg version="1.1" id="crystal" xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" enable-background="new 0 0 256 256"
-                    xml:space="preserve">
+                </svg></div>
+            <div class="crystal-interactive crystal-2"><svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 256 256">
                     <path
                         d="M211.3,86.9l-40.5,15.7l7.5-47.8L120.6,8L62.9,54.7l13.3,84.4l-35.5-13.9l-27.8,42.1l40,80.6h133.9l29.6-59.8l26.7-52.7 L211.3,86.9z M204,104.1l-0.3,21.9l-17.6-6.5L204,104.1z M81.1,238l-20.2-83l-14.8-17.2l31.9,13L91.8,238H81.1z M77,56.1l28.8-23.8 l-10.5,25L77,56.1z M140.7,238l7.1-71.3l6.3-20.1L127,162.3V238h-11.3l-9.6-178.9l14.6-38.2l47.2,37.9l-13.8,87.8l21,23.2L153,238 H140.7z M179.9,238h-8.4l42.9-107.9l-0.5-21l17.7,27L179.9,238z" />
-                </svg>
-            </div>
-            <div class="crystal-interactive crystal-3">
-                <svg version="1.1" id="crystal" xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" enable-background="new 0 0 256 256"
-                    xml:space="preserve">
+                </svg></div>
+            <div class="crystal-interactive crystal-3"><svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 256 256">
                     <path
                         d="M211.3,86.9l-40.5,15.7l7.5-47.8L120.6,8L62.9,54.7l13.3,84.4l-35.5-13.9l-27.8,42.1l40,80.6h133.9l29.6-59.8l26.7-52.7 L211.3,86.9z M204,104.1l-0.3,21.9l-17.6-6.5L204,104.1z M81.1,238l-20.2-83l-14.8-17.2l31.9,13L91.8,238H81.1z M77,56.1l28.8-23.8 l-10.5,25L77,56.1z M140.7,238l7.1-71.3l6.3-20.1L127,162.3V238h-11.3l-9.6-178.9l14.6-38.2l47.2,37.9l-13.8,87.8l21,23.2L153,238 H140.7z M179.9,238h-8.4l42.9-107.9l-0.5-21l17.7,27L179.9,238z" />
-                </svg>
-            </div>
-            <div class="crystal-interactive crystal-4">
-                <svg version="1.1" id="crystal" xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" enable-background="new 0 0 256 256"
-                    xml:space="preserve">
+                </svg></div>
+            <div class="crystal-interactive crystal-4"><svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 256 256">
                     <path
                         d="M211.3,86.9l-40.5,15.7l7.5-47.8L120.6,8L62.9,54.7l13.3,84.4l-35.5-13.9l-27.8,42.1l40,80.6h133.9l29.6-59.8l26.7-52.7 L211.3,86.9z M204,104.1l-0.3,21.9l-17.6-6.5L204,104.1z M81.1,238l-20.2-83l-14.8-17.2l31.9,13L91.8,238H81.1z M77,56.1l28.8-23.8 l-10.5,25L77,56.1z M140.7,238l7.1-71.3l6.3-20.1L127,162.3V238h-11.3l-9.6-178.9l14.6-38.2l47.2,37.9l-13.8,87.8l21,23.2L153,238 H140.7z M179.9,238h-8.4l42.9-107.9l-0.5-21l17.7,27L179.9,238z" />
-                </svg>
-            </div>
-            <div class="crystal-interactive crystal-5">
-                <svg version="1.1" id="crystal" xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" enable-background="new 0 0 256 256"
-                    xml:space="preserve">
+                </svg></div>
+            <div class="crystal-interactive crystal-5"><svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 256 256">
                     <path
                         d="M211.3,86.9l-40.5,15.7l7.5-47.8L120.6,8L62.9,54.7l13.3,84.4l-35.5-13.9l-27.8,42.1l40,80.6h133.9l29.6-59.8l26.7-52.7 L211.3,86.9z M204,104.1l-0.3,21.9l-17.6-6.5L204,104.1z M81.1,238l-20.2-83l-14.8-17.2l31.9,13L91.8,238H81.1z M77,56.1l28.8-23.8 l-10.5,25L77,56.1z M140.7,238l7.1-71.3l6.3-20.1L127,162.3V238h-11.3l-9.6-178.9l14.6-38.2l47.2,37.9l-13.8,87.8l21,23.2L153,238 H140.7z M179.9,238h-8.4l42.9-107.9l-0.5-21l17.7,27L179.9,238z" />
-                </svg>
-            </div>
+                </svg></div>
         </div>
         <div class="foreground-hill"></div>
         <div id="snow-container"></div>
@@ -173,8 +157,6 @@
         </div>
         <button id="calm-scene-back-btn" class="scene-back-btn">Вернуться во вселенную</button>
     </section>
-
-    <!-- Тут будут другие планеты -->
 
     <div id="transition-overlay">
         <h2 id="transition-title"></h2>
@@ -194,7 +176,10 @@
         <div class="celestial-object final-star" id="final-star" title="Сердце Вселенной"></div>
     </main>
 
-    <script src="script.js"></script>
+    <!-- Подключаем новые JS файлы. main.js должен быть первым! -->
+    <script src="js/main.js"></script>
+    <script src="js/planet-smile.js"></script>
+    <script src="js/planet-calm.js"></script>
 </body>
 
 </html>
