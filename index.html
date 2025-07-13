@@ -21,6 +21,13 @@
 
 <body>
 
+    <section id="intro-scene" class="scene visible">
+        <div id="intro-container">
+            <h2 id="intro-title">Для той, кто стала моей вселенной...</h2>
+            <p id="intro-prompt">(Нажми, чтобы начать)</p>
+        </div>
+    </section>
+
     <audio id="unlock-sound" src="assets/audio/iphone-unlock.mp3"></audio>
     <audio id="notification-sound" src="assets/audio/notification.mp3"></audio>
     <audio id="magic-sound" src="assets/audio/magic-transition.mp3"></audio>
@@ -29,15 +36,28 @@
     <audio id="prediction-sound" src="assets/audio/prediction-sound.mp3"></audio>
 
     <!-- HTML-структура сцен -->
-    <section id="lockscreen-scene" class="scene visible">
+    <section id="lockscreen-scene" class="scene">
+        <div class="lockscreen-statusbar">
+            <div class="statusbar-left">
+                <i class="fas fa-signal"></i>
+                <span>My Love</span>
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="statusbar-right">
+                <span>100%</span>
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+
         <div class="lockscreen-time">08:30</div>
         <div class="lockscreen-date">среда, 16 июля</div>
+
         <div class="notifications-container">
             <div class="notification">
                 <div class="notification-icon telegram-icon"><i class="fab fa-telegram-plane"></i></div>
                 <div class="notification-content">
                     <div class="app-name">Telegram</div>
-                    <div class="sender-name">Андрей</div>
+                    <div class="sender-name">Андрюш❤</div>
                     <div class="message-preview">С Днем Рождения, солнышко! ❤️</div>
                 </div>
             </div>
@@ -49,6 +69,22 @@
                     <div class="message-preview">Твой День Рождения! 🎉</div>
                 </div>
             </div>
+            <div class="notification">
+                <div class="notification-icon" style="color: #1DB954;"><i class="fab fa-spotify"></i></div>
+                <div class="notification-content">
+                    <div class="app-name">Spotify</div>
+                    <div class="sender-name">Плейлист "Для нас двоих"</div>
+                    <div class="message-preview">Новый трек: The Neighbourhood - Sweater Weather</div>
+                </div>
+            </div>
+            <div class="notification">
+                <div class="notification-icon" style="color: #ff9f0a;"><i class="fas fa-lightbulb"></i></div>
+                <div class="notification-content">
+                    <div class="app-name">Напоминания</div>
+                    <div class="sender-name">Важное</div>
+                    <div class="message-preview">Не забыть обнять самого лучшего человека!</div>
+                </div>
+            </div>
         </div>
         <div class="lockscreen-footer">
             <div class="swipe-up-text"></div>
@@ -58,7 +94,7 @@
     <section id="chat-scene" class="scene">
         <div class="chat-header">
             <div class="chat-avatar">А</div>
-            <div class="chat-contact-name">Андрей</div>
+            <div class="chat-contact-name">Андрюш<span class="heart-emoji">❤</span></div>
         </div>
         <div id="chat-container"></div>
         <div id="chat-reply-container">
@@ -67,6 +103,7 @@
     </section>
 
     <section id="planet-smile-scene" class="planet-scene">
+        <!-- Содержимое планеты улыбки... -->
         <div class="sky">
             <div class="cloud c1"></div>
             <div class="cloud c2"></div>
@@ -110,6 +147,7 @@
     </section>
 
     <section id="planet-calm-scene" class="planet-scene">
+        <!-- Содержимое планеты спокойствия... -->
         <div class="calm-sky">
             <div class="aurora">
                 <div class="aurora-band"></div>
@@ -161,6 +199,7 @@
     </section>
 
     <section id="planet-future-scene" class="planet-scene">
+        <!-- Содержимое планеты будущего... -->
         <div id="future-stars-container"></div>
         <div class="shooting-stars">
             <div class="star-fall"></div>
@@ -171,17 +210,13 @@
             <div class="star-fall"></div>
         </div>
         <div class="future-sea"></div>
-
         <div class="prediction-text-container">
             <p id="prediction-text"></p>
         </div>
-
         <div class="prediction-sphere">
             <div class="sphere-mist"></div>
         </div>
-
         <div id="prediction-prompt">Коснись сферы, чтобы увидеть наше будущее...</div>
-
         <button id="future-scene-back-btn" class="scene-back-btn">Вернуться во вселенную</button>
     </section>
 
@@ -197,7 +232,6 @@
         <div id="big-bang-flash"></div>
         <div class="celestial-object star" id="object-smile" title="Звезда твоей улыбки"></div>
         <div class="celestial-object planet ice-planet" id="object-calm" title="Ледяная планета спокойствия"></div>
-
         <div class="celestial-object stellar-crystal" id="object-future" title="Звезда-путеводитель">
             <svg class="crystal-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -209,7 +243,6 @@
                 <path d="M50 0 L93.3 25 L93.3 75 L50 100 L6.7 75 L6.7 25 Z" fill="url(#crystalGrad)" />
             </svg>
         </div>
-
         <div class="celestial-object heart-nebula" id="object-romance" title="Туманность Сердца"></div>
         <div class="celestial-object binary-star" id="object-support" title="Двойная звезда поддержки"></div>
         <div class="celestial-object final-star" id="final-star" title="Сердце Вселенной"></div>

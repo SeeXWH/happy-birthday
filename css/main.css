@@ -39,19 +39,72 @@ body {
     visibility: visible;
 }
 
+/* --- ВСТУПИТЕЛЬНЫЙ ЭКРАН --- */
+#intro-scene {
+    background-color: #000;
+    font-family: 'Comfortaa', sans-serif;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+}
+
+#intro-title {
+    font-size: 2em;
+    font-weight: 700;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInText 1.5s 0.5s forwards;
+}
+
+#intro-prompt {
+    margin-top: 20px;
+    font-size: 1.1em;
+    opacity: 0;
+    color: rgba(255, 255, 255, 0.6);
+    animation: fadeInText 1.5s 1s forwards;
+}
+
+@keyframes fadeInText {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* --- АКТ I: ЭКРАН БЛОКИРОВКИ --- */
 #lockscreen-scene {
     background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../assets/img/iphone-wallpaper.jpg');
-    /* ОБРАТИ ВНИМАНИЕ НА ПУТЬ */
     background-size: cover;
     background-position: center;
     justify-content: flex-start;
-    padding-top: 15vh;
+    padding-top: 5vh;
     color: #fff;
     text-shadow: 0 1px 5px rgba(0, 0, 0, 0.4);
+    position: absolute;
+}
+
+.lockscreen-statusbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.statusbar-left,
+.statusbar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .lockscreen-time {
+    margin-top: 50px;
     font-size: 80px;
     font-weight: 200;
 }
@@ -181,10 +234,16 @@ body {
     font-weight: 600;
 }
 
+.heart-emoji {
+    color: #ff3b30;
+    font-size: 16px;
+    margin-left: 2px;
+}
+
 #chat-container {
     width: 100%;
     max-width: 800px;
-    padding: 80px 10px 80px 10px;
+    padding: 80px 10px 120px 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -257,7 +316,7 @@ body {
 
 #chat-reply-container {
     width: 100%;
-    padding: 20px;
+    padding: 10px 20px;
     background-color: #0E1621;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     position: absolute;
@@ -276,7 +335,7 @@ body {
 
 #chat-reply-btn {
     width: 100%;
-    padding: 15px;
+    padding: 12px;
     font-size: 16px;
     font-weight: 600;
     color: #58b0f1;
@@ -287,6 +346,8 @@ body {
     border-radius: 0;
 }
 
+/* --- ОСТАЛЬНЫЕ СТИЛИ (ВСЕЛЕННАЯ, ПЛАНЕТЫ И Т.Д.) --- */
+/* ... (здесь идет остальная часть вашего CSS без изменений) ... */
 /* --- АКТ III: СЦЕНА ВСЕЛЕННОЙ --- */
 #universe-scene {
     background-color: transparent;
