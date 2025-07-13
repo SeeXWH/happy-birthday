@@ -12,10 +12,11 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <!-- Подключаем новые CSS файлы -->
+    <!-- Подключаем CSS файлы -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/planet-smile.css">
     <link rel="stylesheet" href="css/planet-calm.css">
+    <link rel="stylesheet" href="css/planet-future.css">
 </head>
 
 <body>
@@ -25,8 +26,9 @@
     <audio id="magic-sound" src="assets/audio/magic-transition.mp3"></audio>
     <audio id="click-sound" src="assets/audio/chime.mp3"></audio>
     <audio id="crystal-sound" src="assets/audio/crystal-chime.mp3"></audio>
+    <audio id="prediction-sound" src="assets/audio/prediction-sound.mp3"></audio>
 
-    <!-- HTML-структура сцен остается без изменений -->
+    <!-- HTML-структура сцен -->
     <section id="lockscreen-scene" class="scene visible">
         <div class="lockscreen-time">08:30</div>
         <div class="lockscreen-date">среда, 16 июля</div>
@@ -158,6 +160,27 @@
         <button id="calm-scene-back-btn" class="scene-back-btn">Вернуться во вселенную</button>
     </section>
 
+    <section id="planet-future-scene" class="planet-scene">
+        <div class="shooting-stars">
+            <div class="star-fall"></div>
+            <div class="star-fall"></div>
+            <div class="star-fall"></div>
+        </div>
+        <div class="future-sea"></div>
+
+        <div class="prediction-text-container">
+            <p id="prediction-text"></p>
+        </div>
+
+        <div class="prediction-sphere">
+            <div class="sphere-mist"></div>
+        </div>
+
+        <div id="prediction-prompt">Коснись сферы, чтобы увидеть наше будущее...</div>
+
+        <button id="future-scene-back-btn" class="scene-back-btn">Вернуться во вселенную</button>
+    </section>
+
     <div id="transition-overlay">
         <h2 id="transition-title"></h2>
         <p id="transition-text"></p>
@@ -170,16 +193,29 @@
         <div id="big-bang-flash"></div>
         <div class="celestial-object star" id="object-smile" title="Звезда твоей улыбки"></div>
         <div class="celestial-object planet ice-planet" id="object-calm" title="Ледяная планета спокойствия"></div>
-        <div class="celestial-object planet gas-giant" id="object-humor" title="Газовый гигант юмора"></div>
+
+        <div class="celestial-object stellar-crystal" id="object-future" title="Звезда-путеводитель">
+            <svg class="crystal-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="crystalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" class="grad-stop-1" />
+                        <stop offset="100%" class="grad-stop-2" />
+                    </linearGradient>
+                </defs>
+                <path d="M50 0 L93.3 25 L93.3 75 L50 100 L6.7 75 L6.7 25 Z" fill="url(#crystalGrad)" />
+            </svg>
+        </div>
+
         <div class="celestial-object heart-nebula" id="object-romance" title="Туманность Сердца"></div>
         <div class="celestial-object binary-star" id="object-support" title="Двойная звезда поддержки"></div>
         <div class="celestial-object final-star" id="final-star" title="Сердце Вселенной"></div>
     </main>
 
-    <!-- Подключаем новые JS файлы. main.js должен быть первым! -->
+    <!-- Подключаем JS файлы. main.js должен быть первым! -->
     <script src="js/main.js"></script>
     <script src="js/planet-smile.js"></script>
     <script src="js/planet-calm.js"></script>
+    <script src="js/planet-future.js"></script>
 </body>
 
 </html>

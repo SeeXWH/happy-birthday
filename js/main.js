@@ -27,10 +27,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Элементы сцен
     const planetSmileScene = document.getElementById('planet-smile-scene');
     const planetCalmScene = document.getElementById('planet-calm-scene');
+    const planetFutureScene = document.getElementById('planet-future-scene');
 
     // --- СЦЕНАРИИ И ДАННЫЕ ---
     const chatScript = [{ type: 'her', text: 'С Днем Рождения, мое солнышко! ❤️', time: '08:30' }, { type: 'her', text: 'Надеюсь, ты отлично выспалась и готова к самому лучшему дню!', time: '08:31', needs_reply: true }, { type: 'my', text: 'Ааа, привет! Спасибо огромное! 🥰 Только проснулась', time: '08:32' }, { type: 'her', text: 'У меня для тебя есть небольшой подарок. Но чтобы его получить, нужно будет совершить небольшое путешествие... Готова?', time: '08:32', needs_reply: true }, { type: 'my', text: 'Ух ты! Готова, интригуешь)', time: '08:33' }, { type: 'her', text: 'Я прошлой ночью видел удивительный сон о тебе. Хочу тебе его показать.', time: '08:33' }, { type: 'her', text: 'Просто закрой глаза... и нажми на эту ссылку 👇', time: '08:34', link: true }];
-    const contentData = { 'object-smile': { title: 'Звезда твоей улыбки', text: 'Твоя улыбка способна осветить самый темный уголок космоса. Она сияет ярче любой звезды.' }, 'object-calm': { title: 'Ледяная планета спокойствия', text: 'Рядом с тобой я нахожу умиротворение. Ты как эта тихая, красивая планета, где нет бурь и тревог.' }, 'object-humor': { title: 'Газовый гигант юмора', text: 'Твои шутки создают вокруг себя мощную гравитацию, которая притягивает хорошее настроение. С тобой всегда весело!' }, 'object-romance': { title: 'Туманность Сердца', text: 'Это самое красивое, что я нашел в твоей вселенной. Облако нежности, тепла и романтики, которое ты создаешь вокруг.' }, 'object-support': { title: 'Двойная звезда поддержки', text: 'Как эти две звезды, вращающиеся вместе, ты всегда рядом, чтобы поддержать. Я чувствую, что мы — команда.' }, 'final-star': { title: 'Сердце Вселенной', text: 'Это был мой сон. Но он - лишь отражение того, какая ты на самом деле. Удивительная, многогранная и бесконечно любимая. С Днем Рождения!' } };
+    const contentData = {
+        'object-smile': { title: 'Звезда твоей улыбки', text: 'Твоя улыбка способна осветить самый темный уголок космоса. Она сияет ярче любой звезды.' },
+        'object-calm': { title: 'Ледяная планета спокойствия', text: 'Рядом с тобой я нахожу умиротворение. Ты как эта тихая, красивая планета, где нет бурь и тревог.' },
+        'object-future': { title: 'Звезда-путеводитель', text: 'Ты — моя путеводная звезда. С тобой я уверенно смотрю в будущее, зная, что оно будет прекрасным.' },
+        'object-romance': { title: 'Туманность Сердца', text: 'Это самое красивое, что я нашел в твоей вселенной. Облако нежности, тепла и романтики, которое ты создаешь вокруг.' },
+        'object-support': { title: 'Двойная звезда поддержки', text: 'Как эти две звезды, вращающиеся вместе, ты всегда рядом, чтобы поддержать. Я чувствую, что мы — команда.' },
+        'final-star': { title: 'Сердце Вселенной', text: 'Это был мой сон. Но он - лишь отражение того, какая ты на самом деле. Удивительная, многогранная и бесконечно любимая. С Днем Рождения!' }
+    };
 
     // --- ОБЩАЯ ЛОГИКА ---
     function switchScene(hideScene, showScene) { hideScene.style.opacity = '0'; if (hideScene.id === 'universe-scene') { universeWrapper.classList.remove('visible'); } setTimeout(() => { hideScene.classList.remove('visible'); showScene.classList.add('visible'); if (showScene.id === 'chat-scene') startChatScene(); if (showScene.id === 'universe-scene') startUniverseScene(); }, 500); }
@@ -63,6 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
             targetScene = planetSmileScene;
         } else if (planetId === 'object-calm') {
             targetScene = planetCalmScene;
+        } else if (planetId === 'object-future') {
+            targetScene = planetFutureScene;
         } else {
             alert(`Интерактив для "${contentData[planetId].title}" еще в разработке!`);
             currentPlanetObject = null;
@@ -88,6 +98,8 @@ document.addEventListener('DOMContentLoaded', () => {
             startSmilePlanetLogic(transitionBackFromPlanet);
         } else if (planetId === 'object-calm') {
             startCalmPlanetLogic(transitionBackFromPlanet);
+        } else if (planetId === 'object-future') {
+            startFuturePlanetLogic(transitionBackFromPlanet);
         }
     }
 
@@ -99,6 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
             currentPlanetScene = planetSmileScene;
         } else if (planetId === 'object-calm') {
             currentPlanetScene = planetCalmScene;
+        } else if (planetId === 'object-future') {
+            currentPlanetScene = planetFutureScene;
         }
 
         transitionTitle.textContent = "Возвращаемся во вселенную...";
@@ -122,6 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
             resetSmilePlanet();
         } else if (planetId === 'object-calm') {
             resetCalmPlanet();
+        } else if (planetId === 'object-future') {
+            resetFuturePlanet();
         }
         currentPlanetObject = null;
     }
