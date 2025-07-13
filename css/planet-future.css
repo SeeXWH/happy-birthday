@@ -40,11 +40,22 @@
 }
 
 /* --- СТИЛИ ДЛЯ СЦЕНЫ ПЛАНЕТЫ (ВОЛШЕБНАЯ ФИОЛЕТОВАЯ АТМОСФЕРА) --- */
+
+/* ИЕРАРХИЯ СЛОЕВ (Z-INDEX)
+ * 1. Фон со звездами (z-index: 1)
+ * 2. Падающие кометы (z-index: 2)
+ * 3. Море (z-index: 3)
+ * 4. Сфера (z-index: 4)
+ * 5. Текст (z-index: 5)
+*/
+
 #planet-future-scene {
     background: linear-gradient(to bottom, #0d0d2e 0%, #280a4a 50%, #4a148c 100%);
     overflow: hidden;
+    transition: filter 2.5s ease;
 }
 
+/* --- Море и новый эффект воды --- */
 .future-sea {
     position: absolute;
     bottom: 0;
@@ -52,42 +63,84 @@
     width: 100%;
     height: 50%;
     background: linear-gradient(to bottom, rgba(74, 20, 140, 0) 0%, #1a022b 40%, #00001a 100%);
-    z-index: 2;
     overflow: hidden;
+    z-index: 3;
+    /* Море должно быть НАД звездами и кометами */
 }
 
-.future-sea::before {
+/* Более заметная анимация воды (две волны) */
+.future-sea::before,
+.future-sea::after {
     content: '';
+    position: absolute;
+    left: 50%;
+    min-width: 300vw;
+    min-height: 300vw;
+    background-color: rgba(162, 155, 254, 0.15);
+    border-radius: 45%;
+    animation: wave-flow 10s linear infinite;
+    top: -250%;
+    /* Сдвигаем круги сильно вверх, чтобы видеть только их нижнюю часть */
+}
+
+.future-sea::after {
+    animation-duration: 12s;
+    animation-direction: reverse;
+    opacity: 0.7;
+    background-color: rgba(162, 155, 254, 0.1);
+}
+
+@keyframes wave-flow {
+    from {
+        transform: translate(-50%, -5%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -5%) rotate(360deg);
+    }
+}
+
+
+/* --- Звезды на фоне --- */
+#future-stars-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 2px;
-    background: rgba(162, 155, 254, 0.4);
-    box-shadow: 0 0 10px 2px rgba(162, 155, 254, 0.3);
-}
-
-.future-sea::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 300%;
     height: 100%;
-    background: linear-gradient(90deg, transparent 0%, rgba(162, 155, 254, 0.1) 50%, transparent 100%);
-    animation: sea-shimmer 15s linear infinite;
+    z-index: 1;
+    /* Самый нижний слой */
 }
 
-@keyframes sea-shimmer {
-    from {
-        transform: translateX(0);
+.future-star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle 5s ease-in-out infinite;
+    transition: box-shadow 1.5s ease;
+    box-shadow: 0 0 2px #fff, 0 0 5px #a29bfe;
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: 0.4;
     }
 
-    to {
-        transform: translateX(33%);
+    50% {
+        opacity: 1;
     }
 }
 
+#planet-future-scene.is-predicting .future-star {
+    box-shadow: 0 0 8px #fff, 0 0 20px #d6cfff;
+    animation-duration: 1s;
+    /* Мерцают быстрее */
+}
+
+
+/* --- Падающие кометы --- */
 .shooting-stars {
     position: absolute;
     top: 0;
@@ -95,53 +148,111 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
+    z-index: 2;
+    /* Кометы НАД звездами, но ПОД морем */
 }
 
 .star-fall {
     position: absolute;
     height: 2px;
-    background: linear-gradient(-45deg, rgba(162, 155, 254, 1), transparent);
     border-radius: 999px;
     filter: drop-shadow(0 0 6px rgba(162, 155, 254, 0.8));
-    animation: shooting-star-fall 10s linear infinite;
+}
+
+.star-fall:nth-child(odd) {
+    background: linear-gradient(to right, rgba(162, 155, 254, 1), transparent);
+    animation-name: shooting-star-fall-ltr;
+}
+
+.star-fall:nth-child(even) {
+    background: linear-gradient(to left, rgba(253, 121, 168, 1), transparent);
+    animation-name: shooting-star-fall-rtl;
+}
+
+/* Задаем разные параметры для каждой кометы */
+.star-fall {
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
 }
 
 .star-fall:nth-child(1) {
     top: 10%;
-    right: -50%;
-    width: 150px;
-    animation-delay: 0s;
     animation-duration: 8s;
+    animation-delay: 0s;
 }
 
 .star-fall:nth-child(2) {
-    top: 30%;
-    right: -50%;
-    width: 100px;
-    animation-delay: 3.2s;
+    top: 40%;
     animation-duration: 10s;
+    animation-delay: 3.2s;
 }
 
 .star-fall:nth-child(3) {
     top: 60%;
-    right: -50%;
-    width: 200px;
-    animation-delay: 5.7s;
     animation-duration: 7s;
+    animation-delay: 5.7s;
 }
 
-@keyframes shooting-star-fall {
+.star-fall:nth-child(4) {
+    top: 20%;
+    animation-duration: 9s;
+    animation-delay: 1.5s;
+}
+
+.star-fall:nth-child(5) {
+    top: 50%;
+    animation-duration: 12s;
+    animation-delay: 8s;
+}
+
+.star-fall:nth-child(6) {
+    top: 5%;
+    animation-duration: 6s;
+    animation-delay: 4s;
+}
+
+@keyframes shooting-star-fall-ltr {
     0% {
-        transform: translateX(0);
+        transform: translateX(100vw) translateY(-50vh) rotate(25deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
         opacity: 1;
     }
 
     100% {
-        transform: translateX(-150vw);
+        transform: translateX(-50vw) translateY(100vh) rotate(25deg);
         opacity: 0;
     }
 }
 
+@keyframes shooting-star-fall-rtl {
+    0% {
+        transform: translateX(-100vw) translateY(-50vh) rotate(-25deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(50vw) translateY(100vh) rotate(-25deg);
+        opacity: 0;
+    }
+}
+
+
+/* --- Сфера и текст --- */
 .prediction-sphere {
     position: absolute;
     top: 50%;
@@ -151,10 +262,13 @@
     height: 40vh;
     max-width: 300px;
     max-height: 300px;
-    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 70%);
+    /* Добавлен сплошной цвет фона, чтобы сфера не была прозрачной */
+    background-color: #1a022b;
+    background-image: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 70%);
     border-radius: 50%;
     cursor: pointer;
-    z-index: 3;
+    z-index: 4;
+    /* Сфера над морем */
     transition: box-shadow 0.5s ease;
     box-shadow: 0 0 20px rgba(162, 155, 254, 0.3);
 }
@@ -194,6 +308,12 @@
     opacity: 0.8;
 }
 
+.prediction-text-container,
+#prediction-prompt {
+    z-index: 5;
+    /* Текст всегда наверху */
+}
+
 .prediction-text-container {
     position: absolute;
     top: 25%;
@@ -202,7 +322,6 @@
     width: 85%;
     max-width: 500px;
     text-align: center;
-    z-index: 4;
     color: #fff;
     font-family: 'Comfortaa', sans-serif;
     font-size: clamp(1em, 4vw, 1.5em);
@@ -229,7 +348,6 @@
     font-size: 1em;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     pointer-events: none;
-    z-index: 4;
     animation: pulse-text 2s infinite ease-in-out;
     opacity: 1;
     transition: opacity 0.5s ease;
