@@ -65,10 +65,12 @@
     background: linear-gradient(to bottom, rgba(74, 20, 140, 0) 0%, #1a022b 40%, #00001a 100%);
     overflow: hidden;
     z-index: 3;
-    /* Море должно быть НАД звездами и кометами */
+    /* ИЗМЕНЕНО: Линия горизонта сделана чуть ярче для четкости */
+    border-top: 2px solid rgba(194, 187, 253, 0.4);
+    box-shadow: 0 -5px 25px -5px rgba(194, 187, 253, 0.5);
 }
 
-/* Более заметная анимация воды (две волны) */
+/* ИЗМЕНЕНО: Ключевое исправление - цвет волн заменен на белый */
 .future-sea::before,
 .future-sea::after {
     content: '';
@@ -76,18 +78,18 @@
     left: 50%;
     min-width: 300vw;
     min-height: 300vw;
-    background-color: rgba(162, 155, 254, 0.15);
+    /* Волны стали светлыми бликами */
+    background-color: rgba(255, 255, 255, 0.08);
     border-radius: 45%;
     animation: wave-flow 10s linear infinite;
     top: -250%;
-    /* Сдвигаем круги сильно вверх, чтобы видеть только их нижнюю часть */
 }
 
 .future-sea::after {
-    animation-duration: 12s;
+    animation-duration: 13s;
     animation-direction: reverse;
-    opacity: 0.7;
-    background-color: rgba(162, 155, 254, 0.1);
+    /* Вторая волна чуть менее заметна для глубины */
+    background-color: rgba(255, 255, 255, 0.06);
 }
 
 @keyframes wave-flow {
@@ -109,7 +111,6 @@
     width: 100%;
     height: 100%;
     z-index: 1;
-    /* Самый нижний слой */
 }
 
 .future-star {
@@ -136,7 +137,6 @@
 #planet-future-scene.is-predicting .future-star {
     box-shadow: 0 0 8px #fff, 0 0 20px #d6cfff;
     animation-duration: 1s;
-    /* Мерцают быстрее */
 }
 
 
@@ -149,7 +149,6 @@
     height: 100%;
     overflow: hidden;
     z-index: 2;
-    /* Кометы НАД звездами, но ПОД морем */
 }
 
 .star-fall {
@@ -169,7 +168,6 @@
     animation-name: shooting-star-fall-rtl;
 }
 
-/* Задаем разные параметры для каждой кометы */
 .star-fall {
     animation-timing-function: linear;
     animation-iteration-count: infinite;
@@ -262,13 +260,11 @@
     height: 40vh;
     max-width: 300px;
     max-height: 300px;
-    /* Добавлен сплошной цвет фона, чтобы сфера не была прозрачной */
     background-color: #1a022b;
     background-image: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 70%);
     border-radius: 50%;
     cursor: pointer;
     z-index: 4;
-    /* Сфера над морем */
     transition: box-shadow 0.5s ease;
     box-shadow: 0 0 20px rgba(162, 155, 254, 0.3);
 }
@@ -311,7 +307,6 @@
 .prediction-text-container,
 #prediction-prompt {
     z-index: 5;
-    /* Текст всегда наверху */
 }
 
 .prediction-text-container {
