@@ -240,3 +240,12 @@
 #romance-prompt-text.visible {
     opacity: 1;
 }
+
+/* ВРЕМЕННЫЙ ТЕСТ ДЛЯ IPHONE */
+#romance-svg-container svg .romance-core-svg {
+    opacity: 1 !important;
+    fill: red !important;
+    /* Делаем его красным, чтобы точно заметить */
+    r: 10 !important;
+    /* Делаем его большим */
+}
