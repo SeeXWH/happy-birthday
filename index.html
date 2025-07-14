@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/planet-smile.css">
     <link rel="stylesheet" href="css/planet-calm.css">
     <link rel="stylesheet" href="css/planet-future.css">
+    <link rel="stylesheet" href="css/planet-romance.css"> <!-- Стили для новой планеты -->
 </head>
 
 <body>
@@ -33,6 +34,7 @@
     <audio id="magic-sound" src="assets/audio/magic-transition.mp3"></audio>
     <audio id="click-sound" src="assets/audio/chime.mp3"></audio>
     <audio id="crystal-sound" src="assets/audio/crystal-chime.mp3"></audio>
+    <audio id="rift-sound" src="assets/audio/whoosh.mp3" preload="auto"></audio> <!-- Аудио для свайпа -->
     <audio id="prediction-sound" src="assets/audio/prediction-sound.mp3"></audio>
 
     <!-- HTML-структура сцен -->
@@ -219,6 +221,29 @@
         <button id="future-scene-back-btn" class="scene-back-btn">Вернуться во вселенную</button>
     </section>
 
+    <!-- Секция для планеты "Туманность Сердца" -->
+    <section id="planet-romance-scene" class="planet-scene">
+        <div id="romance-svg-container"></div>
+
+        <div id="romance-nebula-container">
+            <div class="nebula-layer layer-1"></div>
+            <div class="nebula-layer layer-2"></div>
+            <div class="nebula-layer layer-3"></div>
+        </div>
+
+        <!-- ЕДИНЫЙ КОНТЕЙНЕР ДЛЯ ТЕКСТА (ЗАГОЛОВКА И ПОДПИСИ) -->
+        <div id="romance-text-container">
+            <p id="romance-quality-text"></p>
+            <p id="romance-phrase-text"></p>
+        </div>
+
+        <div id="romance-prompt-container">
+            <p id="romance-prompt-text"></p>
+        </div>
+
+        <button id="romance-scene-back-btn" class="scene-back-btn">Вернуться во вселенную</button>
+    </section>
+
     <div id="transition-overlay">
         <h2 id="transition-title"></h2>
         <p id="transition-text"></p>
@@ -252,6 +277,7 @@
     <script src="js/planet-smile.js"></script>
     <script src="js/planet-calm.js"></script>
     <script src="js/planet-future.js"></script>
+    <script src="js/planet-romance.js"></script> <!-- Скрипт для новой планеты -->
 </body>
 
 </html>

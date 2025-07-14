@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const planetSmileScene = document.getElementById('planet-smile-scene');
     const planetCalmScene = document.getElementById('planet-calm-scene');
     const planetFutureScene = document.getElementById('planet-future-scene');
+    const planetRomanceScene = document.getElementById('planet-romance-scene'); // Новая сцена
 
     // --- СЦЕНАРИИ И ДАННЫЕ ---
     const chatScript = [{ type: 'her', text: 'С Днем Рождения, любимая❤️', time: '08:30', needs_reply: true },
@@ -211,6 +212,8 @@ document.addEventListener('DOMContentLoaded', () => {
             targetScene = planetCalmScene;
         } else if (planetId === 'object-future') {
             targetScene = planetFutureScene;
+        } else if (planetId === 'object-romance') { // Логика для новой планеты
+            targetScene = planetRomanceScene;
         } else {
             alert(`Интерактив для "${contentData[planetId].title}" еще в разработке!`);
             currentPlanetObject = null;
@@ -238,6 +241,8 @@ document.addEventListener('DOMContentLoaded', () => {
             startCalmPlanetLogic(transitionBackFromPlanet);
         } else if (planetId === 'object-future') {
             startFuturePlanetLogic(transitionBackFromPlanet);
+        } else if (planetId === 'object-romance') { // Запускаем логику новой планеты
+            startRomancePlanetLogic(transitionBackFromPlanet);
         }
     }
 
@@ -251,6 +256,8 @@ document.addEventListener('DOMContentLoaded', () => {
             currentPlanetScene = planetCalmScene;
         } else if (planetId === 'object-future') {
             currentPlanetScene = planetFutureScene;
+        } else if (planetId === 'object-romance') { // Логика возврата с новой планеты
+            currentPlanetScene = planetRomanceScene;
         }
 
         transitionTitle.textContent = "Возвращаемся во вселенную...";
@@ -278,6 +285,8 @@ document.addEventListener('DOMContentLoaded', () => {
             resetCalmPlanet();
         } else if (planetId === 'object-future') {
             resetFuturePlanet();
+        } else if (planetId === 'object-romance') { // Сбрасываем состояние новой планеты
+            resetRomancePlanet();
         }
         currentPlanetObject = null;
     }
