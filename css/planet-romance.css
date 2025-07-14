@@ -121,6 +121,7 @@
     filter: blur(40px) brightness(1);
     opacity: 1;
     transition: filter 0.2s linear, opacity 0.2s linear;
+    display: none;
 }
 
 .nebula-layer {
