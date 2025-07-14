@@ -91,16 +91,22 @@
 
     0%,
     100% {
-        filter: drop-shadow(0 0 4px #e1bee7) drop-shadow(0 0 8px #ba68c8) drop-shadow(0 0 12px #9c27b0);
+        /* Начальное и конечное состояние свечения: более спокойное */
+        filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 2px #fff) drop-shadow(0 0 4px #e040fb) drop-shadow(0 0 7px #d000ff);
+        /* Свойство transform полностью убрано */
     }
 
     50% {
-        filter: drop-shadow(0 0 6px #fff) drop-shadow(0 0 12px #ce93d8) drop-shadow(0 0 20px #ab47bc);
+        /* Пиковое состояние свечения: более яркое и широкое */
+        filter: drop-shadow(0 0 1px #fff) drop-shadow(0 0 3px #fff) drop-shadow(0 0 7px #e040fb) drop-shadow(0 0 12px #d000ff);
+        /* Свойство transform полностью убрано */
     }
 }
 
 .romance-core-svg.activated {
-    fill: #f3e5f5;
+    fill: #f5d7ff;
+    /* Светлая заливка для яркого ядра свечения */
+    /* Применяем анимацию, которая теперь управляет только свечением */
     animation: pulse-activated-core 2s ease-in-out infinite;
 }
 
