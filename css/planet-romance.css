@@ -121,7 +121,6 @@
     filter: blur(40px) brightness(1);
     opacity: 1;
     transition: filter 0.2s linear, opacity 0.2s linear;
-    display: none;
 }
 
 .nebula-layer {
@@ -242,11 +241,10 @@
     opacity: 1;
 }
 
-/* ВРЕМЕННЫЙ ТЕСТ ДЛЯ IPHONE */
-#romance-svg-container svg .romance-core-svg {
-    opacity: 1 !important;
-    fill: red !important;
-    /* Делаем его красным, чтобы точно заметить */
-    r: 10 !important;
-    /* Делаем его большим */
+/* НОВЫЙ ВРЕМЕННЫЙ ТЕСТ ДЛЯ IPHONE */
+#romance-svg-container {
+    background-color: rgba(0, 255, 0, 0.5) !important;
+    /* Полупрозрачный зеленый фон */
+    pointer-events: auto !important;
+    /* На всякий случай включаем обработку событий */
 }
