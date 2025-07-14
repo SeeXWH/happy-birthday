@@ -1,4 +1,4 @@
-// --- ЛОГИКА ПЛАНЕТЫ "ТУМАННОСТЬ СЕРДЦА" (v17, "ПУЛЕНЕПРОБИВАЕМАЯ" ВЕРСИЯ ДЛЯ IOS) ---
+// --- ЛОГИКА ПЛАНЕТЫ "ТУМАННОСТЬ СЕРДЦА" (v15, БОЛЬШЕ ЗВЕЗД) ---
 
 const romanceCoresData = [
     { pos: [50, 90], quality: 'Искренность', phrase: 'Основа, на которой держится всё.', activated: false },
@@ -19,26 +19,44 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 function createHeartStars() {
     const container = document.getElementById('romance-hearts-background');
     if (container.childElementCount > 0) return;
-    const placedStars = [], count = 30, maxTries = 50;
+
+    const placedStars = [];
+    // ИЗМЕНЕНИЕ ЗДЕСЬ
+    const count = 30; // Увеличиваем количество звезд
+    const maxTries = 50;
+
     for (let i = 0; i < count; i++) {
-        let currentTry = 0, hasOverlap, newStar;
+        let currentTry = 0;
+        let hasOverlap;
+        let newStar;
+
         do {
-            hasOverlap = false; const size = Math.random() * 25 + 15;
+            hasOverlap = false;
+            const size = Math.random() * 25 + 15;
             const x = Math.random() * (window.innerWidth - size);
             const y = Math.random() * (window.innerHeight - size);
+
             newStar = { x, y, size };
+
             for (const placed of placedStars) {
                 const distance = Math.sqrt(Math.pow(newStar.x - placed.x, 2) + Math.pow(newStar.y - placed.y, 2));
-                if (distance < (newStar.size / 2) + (placed.size / 2) + 10) { hasOverlap = true; break; }
+                const minDistance = (newStar.size / 2) + (placed.size / 2) + 10;
+                if (distance < minDistance) {
+                    hasOverlap = true;
+                    break;
+                }
             }
             currentTry++;
         } while (hasOverlap && currentTry < maxTries);
+
         if (!hasOverlap) {
             placedStars.push(newStar);
             const starEl = document.createElement('div');
             starEl.className = 'heart-star';
-            starEl.style.width = `${newStar.size}px`; starEl.style.height = `${newStar.size}px`;
-            starEl.style.top = `${newStar.y}px`; starEl.style.left = `${newStar.x}px`;
+            starEl.style.width = `${newStar.size}px`;
+            starEl.style.height = `${newStar.size}px`;
+            starEl.style.top = `${newStar.y}px`;
+            starEl.style.left = `${newStar.x}px`;
             starEl.style.transform = `rotate(${Math.random() * 360}deg)`;
             starEl.style.animationDelay = `${Math.random() * 10}s`;
             starEl.style.animationDuration = `${Math.random() * 6 + 8}s`;
@@ -47,6 +65,7 @@ function createHeartStars() {
         }
     }
 }
+
 
 function startRomancePlanetLogic(goBackFunction) {
     const scene = document.getElementById('planet-romance-scene');
@@ -67,23 +86,22 @@ function startRomancePlanetLogic(goBackFunction) {
         nebulaContainer.style.opacity = 1 - (progress * 0.8);
         nebulaContainer.style.filter = `blur(${40 - progress * 30}px) brightness(${1 + progress * 0.5})`;
         document.querySelectorAll('.romance-core-svg').forEach(coreEl => {
-            if (!coreEl.classList.contains('romance-core-svg--activated')) {
-                if (progress > 0.5) coreEl.classList.add('visible'); else coreEl.classList.remove('visible');
-            }
+            if (!coreEl.classList.contains('activated')) coreEl.style.opacity = progress;
+            if (progress > 0.5 && !coreEl.classList.contains('activated')) coreEl.classList.add('visible');
+            else coreEl.classList.remove('visible');
         });
         if (progress > 0.5 && !hintForCoresShown) { showHint('Ты видишь огоньки? Коснись их, чтобы раскрыть их тайну.'); hintForCoresShown = true; }
     }
 
     createHeartStars();
+
     svgContainer.innerHTML = '';
     const svgNS = "http://www.w3.org/2000/svg";
     const svg = document.createElementNS(svgNS, 'svg');
     svg.setAttribute('viewBox', '0 0 100 100');
     svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
 
-    // ГЛАВНОЕ ИЗМЕНЕНИЕ: СОЗДАЕМ ДВА СЛОЯ СФЕР
     romanceCoresData.slice(0, -1).forEach((coreData, index) => {
-        // Слой 1: Обычная белая сфера
         const coreEl = document.createElementNS(svgNS, 'circle');
         coreEl.setAttribute('id', `core-${index}`);
         coreEl.setAttribute('class', 'romance-core-svg');
@@ -91,14 +109,6 @@ function startRomancePlanetLogic(goBackFunction) {
         coreEl.setAttribute('cy', coreData.pos[1]);
         coreEl.addEventListener('click', () => activateCore(index));
         svg.appendChild(coreEl);
-
-        // Слой 2: Активированная фиолетовая сфера (скрыта)
-        const activatedCoreEl = document.createElementNS(svgNS, 'circle');
-        activatedCoreEl.setAttribute('id', `core-activated-${index}`);
-        activatedCoreEl.setAttribute('class', 'romance-core-svg--activated');
-        activatedCoreEl.setAttribute('cx', coreData.pos[0]);
-        activatedCoreEl.setAttribute('cy', coreData.pos[1]);
-        svg.appendChild(activatedCoreEl);
     });
     svgContainer.appendChild(svg);
 
@@ -129,15 +139,12 @@ function startRomancePlanetLogic(goBackFunction) {
     function activateCore(index) {
         const coreData = romanceCoresData[index];
         const coreEl = document.getElementById(`core-${index}`);
-        const activatedCoreEl = document.getElementById(`core-activated-${index}`);
         if (!coreData || coreData.activated || !coreEl.classList.contains('visible')) return;
 
         if (crystalSound) { crystalSound.currentTime = 0; crystalSound.play(); }
         coreData.activated = true;
-
-        // Прячем белую сферу и показываем фиолетовую
-        coreEl.style.display = 'none';
-        activatedCoreEl.classList.add('visible');
+        coreEl.classList.remove('visible');
+        coreEl.classList.add('activated');
 
         qualityText.textContent = coreData.quality;
         phraseText.textContent = coreData.phrase;
@@ -152,18 +159,25 @@ function startRomancePlanetLogic(goBackFunction) {
 
     async function animateHeartLinesSequentially(svgEl) {
         textContainer.classList.remove('visible');
+
         for (let i = 1; i < romanceCoresData.length; i++) {
-            const startPoint = romanceCoresData[i - 1]; const endPoint = romanceCoresData[i];
+            const startPoint = romanceCoresData[i - 1];
+            const endPoint = romanceCoresData[i];
+
             const path = document.createElementNS(svgNS, 'path');
             path.setAttribute('class', 'heart-path');
             path.setAttribute('d', `M ${startPoint.pos[0]} ${startPoint.pos[1]} L ${endPoint.pos[0]} ${endPoint.pos[1]}`);
             svgEl.insertBefore(path, svgEl.firstChild);
+
             const length = path.getTotalLength();
-            path.style.strokeDasharray = length; path.style.strokeDashoffset = length;
+            path.style.strokeDasharray = length;
+            path.style.strokeDashoffset = length;
             path.style.transition = 'stroke-dashoffset 0.5s ease-out';
             requestAnimationFrame(() => { path.style.strokeDashoffset = '0'; });
+
             await delay(500);
         }
+
         await delay(500);
         qualityText.textContent = 'Ты состоишь из света';
         phraseText.textContent = 'Спасибо, что освещаешь мой мир. С Днем Рождения!';
@@ -182,6 +196,7 @@ function resetRomancePlanet() {
     const backBtn = document.getElementById('romance-scene-back-btn');
     const promptText = document.getElementById('romance-prompt-text');
     const heartsContainer = document.getElementById('romance-hearts-background');
+
     totalSwipeDistance = 0; isSwiping = false; lastPosition = null; hintForCoresShown = false;
     clearTimeout(hintTimeout);
     romanceCoresData.forEach(core => { core.activated = false; });
