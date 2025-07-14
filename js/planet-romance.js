@@ -1,19 +1,71 @@
-// --- ЛОГИКА ПЛАНЕТЫ "ТУМАННОСТЬ СЕРДЦА" (v11, ФИНАЛЬНЫЕ ПРАВКИ) ---
+// --- ЛОГИКА ПЛАНЕТЫ "ТУМАННОСТЬ СЕРДЦА" (v15, БОЛЬШЕ ЗВЕЗД) ---
 
-// ФИНАЛЬНЫЕ КООРДИНАТЫ ДЛЯ ИДЕАЛЬНОЙ ФОРМЫ СЕРДЦА
 const romanceCoresData = [
     { pos: [50, 90], quality: 'Искренность', phrase: 'Основа, на которой держится всё.', activated: false },
     { pos: [20, 65], quality: 'Забота', phrase: 'Твоя способность согревать одним лишь присутствием.', activated: false },
     { pos: [20, 40], quality: 'Мечтательность', phrase: 'Умение видеть волшебство в обычных вещах.', activated: false },
-    { pos: [50, 50], quality: 'Чувство юмора', phrase: 'Смех, который спасает даже самый плохой день.', activated: false }, // Верхняя точка опущена еще ниже
+    { pos: [50, 50], quality: 'Чувство юмора', phrase: 'Смех, который спасает даже самый плохой день.', activated: false },
     { pos: [80, 40], quality: 'Мудрость', phrase: 'Твои слова, которые всегда находят путь к сердцу.', activated: false },
     { pos: [80, 65], quality: 'Эмпатия', phrase: 'Способность чувствовать мою радость и боль как свои.', activated: false },
-    { pos: [50, 90], quality: 'Сила', phrase: 'Твоя внутренняя сила, которая меня восхищает.', activated: false } // Замыкающая точка
+    { pos: [50, 90], quality: 'Сила', phrase: 'Твоя внутренняя сила, которая меня восхищает.', activated: false }
 ];
+
+const svgHeartHTML = `<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.24264 8.24264L8 15L14.7574 8.24264C15.553 7.44699 16 6.36786 16 5.24264V5.05234C16 2.8143 14.1857 1 11.9477 1C10.7166 1 9.55233 1.55959 8.78331 2.52086L8 3.5L7.21669 2.52086C6.44767 1.55959 5.28338 1 4.05234 1C1.8143 1 0 2.8143 0 5.05234V5.24264C0 6.36786 0.44699 7.44699 1.24264 8.24264Z" fill="rgba(255, 110, 199, 0.15)"/></svg>`;
 
 let isSwiping = false, lastPosition = null, totalSwipeDistance = 0, hintTimeout, hintForCoresShown = false;
 const MAX_SWIPE_DISTANCE = 5000;
 const delay = ms => new Promise(res => setTimeout(res, ms));
+
+function createHeartStars() {
+    const container = document.getElementById('romance-hearts-background');
+    if (container.childElementCount > 0) return;
+
+    const placedStars = [];
+    // ИЗМЕНЕНИЕ ЗДЕСЬ
+    const count = 30; // Увеличиваем количество звезд
+    const maxTries = 50;
+
+    for (let i = 0; i < count; i++) {
+        let currentTry = 0;
+        let hasOverlap;
+        let newStar;
+
+        do {
+            hasOverlap = false;
+            const size = Math.random() * 25 + 15;
+            const x = Math.random() * (window.innerWidth - size);
+            const y = Math.random() * (window.innerHeight - size);
+
+            newStar = { x, y, size };
+
+            for (const placed of placedStars) {
+                const distance = Math.sqrt(Math.pow(newStar.x - placed.x, 2) + Math.pow(newStar.y - placed.y, 2));
+                const minDistance = (newStar.size / 2) + (placed.size / 2) + 10;
+                if (distance < minDistance) {
+                    hasOverlap = true;
+                    break;
+                }
+            }
+            currentTry++;
+        } while (hasOverlap && currentTry < maxTries);
+
+        if (!hasOverlap) {
+            placedStars.push(newStar);
+            const starEl = document.createElement('div');
+            starEl.className = 'heart-star';
+            starEl.style.width = `${newStar.size}px`;
+            starEl.style.height = `${newStar.size}px`;
+            starEl.style.top = `${newStar.y}px`;
+            starEl.style.left = `${newStar.x}px`;
+            starEl.style.transform = `rotate(${Math.random() * 360}deg)`;
+            starEl.style.animationDelay = `${Math.random() * 10}s`;
+            starEl.style.animationDuration = `${Math.random() * 6 + 8}s`;
+            starEl.innerHTML = svgHeartHTML;
+            container.appendChild(starEl);
+        }
+    }
+}
+
 
 function startRomancePlanetLogic(goBackFunction) {
     const scene = document.getElementById('planet-romance-scene');
@@ -40,6 +92,8 @@ function startRomancePlanetLogic(goBackFunction) {
         });
         if (progress > 0.5 && !hintForCoresShown) { showHint('Ты видишь огоньки? Коснись их, чтобы раскрыть их тайну.'); hintForCoresShown = true; }
     }
+
+    createHeartStars();
 
     svgContainer.innerHTML = '';
     const svgNS = "http://www.w3.org/2000/svg";
@@ -141,6 +195,7 @@ function resetRomancePlanet() {
     const textContainer = document.getElementById('romance-text-container');
     const backBtn = document.getElementById('romance-scene-back-btn');
     const promptText = document.getElementById('romance-prompt-text');
+    const heartsContainer = document.getElementById('romance-hearts-background');
 
     totalSwipeDistance = 0; isSwiping = false; lastPosition = null; hintForCoresShown = false;
     clearTimeout(hintTimeout);
@@ -148,6 +203,7 @@ function resetRomancePlanet() {
     nebulaContainer.style.opacity = '';
     nebulaContainer.style.filter = '';
     svgContainer.innerHTML = '';
+    heartsContainer.innerHTML = '';
     textContainer.classList.remove('visible');
     backBtn.classList.remove('visible');
     promptText.classList.remove('visible');
