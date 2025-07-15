@@ -8,9 +8,15 @@
     font-style: normal;
 }
 
+body {
+    background-color: #0c0c0c;
+}
+
 
 #final-congrats-scene {
+    margin-top: 50px;
     background-color: #0c0c0c;
+    padding-top: 100px;
     /* Слегка смягченный черный */
     cursor: pointer;
     display: flex;
@@ -25,11 +31,10 @@
 
 /* Контейнер для букв-символов */
 .lilya-ring-container {
-    padding-top: 600px;
     position: relative;
-    width: 500px;
+    width: 350px;
     height: 30vh;
-    margin-bottom: 70px;
+    margin-bottom: 50px;
     flex-shrink: 0;
     /* Предотвращает сжатие контейнера */
 
@@ -64,8 +69,8 @@
     rotate: -45deg;
     /* 160px */
     /* top: 20px; */
-    bottom: 170px;
-    left: 170px;
+    bottom: 165px;
+    left: 100px;
     transform: translateX(-50%);
 }
 
@@ -76,7 +81,7 @@
     font-size: 7.5rem;
     rotate: 90deg;
     bottom: -30px;
-    left: 150px;
+    left: 100px;
 }
 
 #letter-b {
@@ -86,8 +91,8 @@
     font-size: 8.5em;
     rotate: 180deg;
     transform: scaleX(-1);
-    bottom: 90px;
-    right: 150px;
+    bottom: 100px;
+    right: 70px;
 }
 
 
