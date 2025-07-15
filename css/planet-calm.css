@@ -391,3 +391,27 @@
         transform: translateY(110vh) translateX(20px);
     }
 }
+
+/* --- Стили для подсказки на планете спокойствия --- */
+#calm-prompt {
+    position: absolute;
+    bottom: 12%;
+    /* Располагаем над холмами */
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.2em;
+    text-shadow: 0 2px 8px rgba(26, 61, 131, 0.9);
+    z-index: 14;
+    /* Выше холмов и кристаллов, но ниже снега */
+    pointer-events: none;
+    /* Чтобы текст не мешал нажимать на кристаллы */
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Класс для скрытия подсказки */
+#calm-prompt.hidden {
+    opacity: 0;
+}

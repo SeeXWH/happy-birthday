@@ -74,6 +74,7 @@ function startCalmPlanetLogic(goBackFunction) {
     const quoteContainerCalm = document.querySelector('#planet-calm-scene .quote-container');
     const quoteTextCalm = document.querySelector('#planet-calm-scene .quote-text');
     const calmSceneBackBtn = document.getElementById('calm-scene-back-btn');
+    const calmPrompt = document.getElementById('calm-prompt'); // <<<--- ПОЛУЧАЕМ ЭЛЕМЕНТ ПОДСКАЗКИ
 
     crystals.forEach(crystal => {
         crystal.onclick = () => {
@@ -97,6 +98,7 @@ function startCalmPlanetLogic(goBackFunction) {
             }, 300);
 
             if (firstClickOnCalm) {
+                calmPrompt.classList.add('hidden'); // <<<--- СКРЫВАЕМ ПОДСКАЗКУ ПРИ ПЕРВОМ КЛИКЕ
                 quoteContainerCalm.classList.add('visible');
                 setTimeout(() => {
                     calmSceneBackBtn.classList.add('visible');
@@ -114,6 +116,7 @@ function resetCalmPlanet() {
     const quoteContainerCalm = document.querySelector('#planet-calm-scene .quote-container');
     const calmSceneBackBtn = document.getElementById('calm-scene-back-btn');
     const quoteTextCalm = document.querySelector('#planet-calm-scene .quote-text');
+    const calmPrompt = document.getElementById('calm-prompt'); // <<<--- ПОЛУЧАЕМ ЭЛЕМЕНТ ПОДСКАЗКИ
 
     clearInterval(snowIntervalId);
     clearTimeout(penguinIntervalId);
@@ -123,6 +126,7 @@ function resetCalmPlanet() {
     quoteContainerCalm.classList.remove('visible');
     calmSceneBackBtn.classList.remove('visible');
     quoteTextCalm.textContent = "";
+    calmPrompt.classList.remove('hidden'); // <<<--- ПОКАЗЫВАЕМ ПОДСКАЗКУ СНОВА
     firstClickOnCalm = true;
 
     const crystals = document.querySelectorAll('#planet-calm-scene .crystal-interactive');
