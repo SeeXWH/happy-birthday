@@ -2,14 +2,14 @@
 // В этой версии огоньки - это Div-элементы, а линии между ними - это повернутые Div-элементы.
 
 const romanceCoresData = [
-    { pos: [50, 90], quality: 'Искренность', phrase: 'Основа, на которой держится всё.', activated: false },
-    { pos: [20, 65], quality: 'Забота', phrase: 'Твоя способность согревать одним лишь присутствием.', activated: false },
-    { pos: [20, 40], quality: 'Мечтательность', phrase: 'Умение видеть волшебство в обычных вещах.', activated: false },
-    { pos: [50, 50], quality: 'Чувство юмора', phrase: 'Смех, который спасает даже самый плохой день.', activated: false },
-    { pos: [80, 40], quality: 'Мудрость', phrase: 'Твои слова, которые всегда находят путь к сердцу.', activated: false },
-    { pos: [80, 65], quality: 'Эмпатия', phrase: 'Способность чувствовать мою радость и боль как свои.', activated: false },
+    { pos: [50, 90], quality: 'Искренность', phrase: 'То, что люди ценят в тебе больше всего', activated: false },
+    { pos: [20, 65], quality: 'Забота', phrase: 'Твоя способность согревать одним лишь присутствием', activated: false },
+    { pos: [20, 40], quality: 'Мечтательность', phrase: 'Умение видеть волшебство и красоту в обычных вещах', activated: false },
+    { pos: [50, 50], quality: 'Чувство юмора', phrase: 'Смех, который поднимает настроение даже в самых худший день', activated: false },
+    { pos: [80, 40], quality: 'Мудрость', phrase: 'Твои слова, которые наполняют смыслом жизнь', activated: false },
+    { pos: [80, 65], quality: 'Эмпатия', phrase: 'Способность чувствовать мою радость и боль как свои', activated: false },
     // Последний элемент используется для замыкания контура
-    { pos: [50, 90], quality: 'Сила', phrase: 'Твоя внутренняя сила, которая меня восхищает.', activated: false }
+    { pos: [50, 90], quality: 'Сила', phrase: 'Твоя внутренняя сила, которая меня восхищает', activated: false }
 ];
 
 const svgHeartHTML = `<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1.24264 8.24264L8 15L14.7574 8.24264C15.553 7.44699 16 6.36786 16 5.24264V5.05234C16 2.8143 14.1857 1 11.9477 1C10.7166 1 9.55233 1.55959 8.78331 2.52086L8 3.5L7.21669 2.52086C6.44767 1.55959 5.28338 1 4.05234 1C1.8143 1 0 2.8143 0 5.05234V5.24264C0 6.36786 0.44699 7.44699 1.24264 8.24264Z" fill="rgba(255, 110, 199, 0.15)"/></svg>`;
@@ -68,7 +68,7 @@ function startRomancePlanetLogic(goBackFunction) {
             if (progress > 0.5 && !coreEl.classList.contains('activated')) coreEl.classList.add('visible');
             else coreEl.classList.remove('visible');
         });
-        if (progress > 0.5 && !hintForCoresShown) { showHint('Ты видишь огоньки? Коснись их, чтобы раскрыть их тайну.'); hintForCoresShown = true; }
+        if (progress > 0.5 && !hintForCoresShown) { showHint('Ты видишь огоньки? Коснись их :)'); hintForCoresShown = true; }
     }
 
     createHeartStars();
@@ -85,7 +85,7 @@ function startRomancePlanetLogic(goBackFunction) {
     });
 
     updateAppearance();
-    showHint('Проведи по экрану, чтобы развеять туман');
+    showHint('Води по экрану, чтобы увидеть что за туманом');
 
     const handlePointerDown = e => { isSwiping = true; scene.classList.add('is-swiping'); lastPosition = { x: e.clientX, y: e.clientY }; };
     const handlePointerUp = () => { isSwiping = false; scene.classList.remove('is-swiping'); lastPosition = null; };
@@ -123,6 +123,7 @@ function startRomancePlanetLogic(goBackFunction) {
 
     // НОВАЯ ФУНКЦИЯ ДЛЯ РИСОВАНИЯ ЛИНИЙ
     async function createAndAnimateLines() {
+        await delay(1000);
         textContainer.classList.remove('visible');
         await delay(500);
 
@@ -151,8 +152,8 @@ function startRomancePlanetLogic(goBackFunction) {
         }
 
         await delay(500);
-        qualityText.textContent = 'Ты состоишь из света';
-        phraseText.textContent = 'Спасибо, что освещаешь мой мир. С Днем Рождения!';
+        qualityText.textContent = 'Твое сердце состоит из света';
+        phraseText.textContent = 'Спасибо, что освещаешь им мир❤️';
         textContainer.classList.add('visible');
         backBtn.classList.add('visible');
     }
