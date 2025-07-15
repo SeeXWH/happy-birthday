@@ -14,7 +14,6 @@ body {
 
 
 #final-congrats-scene {
-    margin-top: 50px;
     background-color: #0c0c0c;
     padding-top: 100px;
     /* Слегка смягченный черный */
@@ -31,6 +30,8 @@ body {
 
 /* Контейнер для букв-символов */
 .lilya-ring-container {
+    overflow: hidden;
+    padding-top: 700px;
     position: relative;
     width: 350px;
     height: 30vh;
@@ -86,13 +87,12 @@ body {
 
 #letter-b {
     font-family: 'Geometric';
-    right: 10px;
     position: absolute;
     font-size: 8.5em;
     rotate: 180deg;
     transform: scaleX(-1);
     bottom: 100px;
-    right: 70px;
+    right: 65px;
 }
 
 
@@ -132,8 +132,7 @@ body {
 #restart-prompt {
     /* position: absolute; */
     margin-top: 20px;
-    padding-bottom: 20px;
-    bottom: 20px;
+    padding-bottom: 70px;
     color: rgba(255, 255, 255, 0.3);
     font-family: 'Comfortaa', sans-serif;
     font-size: 0.9em;
