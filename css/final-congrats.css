@@ -8,10 +8,13 @@
     font-style: normal;
 }
 
+body {
+    background-color: #0c0c0c;
+}
+
 
 #final-congrats-scene {
     background-color: #0c0c0c;
-    /* Слегка смягченный черный */
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -19,21 +22,25 @@
     align-items: center;
     transition: opacity 1.5s ease-in-out;
     padding: 20px;
-    overflow-y: auto;
-    /* Добавляем возможность прокрутки, если текст длинный */
+    overflow-y: scroll;
 }
+
+.lub-container {
+    padding-top: 700px;
+    padding-bottom: 30px;
+}
+
 
 /* Контейнер для букв-символов */
 .lilya-ring-container {
-    padding-top: 600px;
+    margin-bottom: 20px;
+    overflow: hidden;
     position: relative;
-    width: 500px;
-    height: 30vh;
-    margin-bottom: 70px;
+    width: 350px;
+    padding-bottom: 90vh;
     flex-shrink: 0;
-    /* Предотвращает сжатие контейнера */
+    aspect-ratio: 1/1;
 
-    /* Анимация появления */
     opacity: 0;
     animation: fadeInRing 2s 1s forwards;
 }
@@ -62,10 +69,8 @@
     position: absolute;
     font-size: 8.5em;
     rotate: -45deg;
-    /* 160px */
-    /* top: 20px; */
-    bottom: 170px;
-    left: 170px;
+    bottom: 200px;
+    left: 100px;
     transform: translateX(-50%);
 }
 
@@ -75,19 +80,18 @@
     position: absolute;
     font-size: 7.5rem;
     rotate: 90deg;
-    bottom: -30px;
-    left: 150px;
+    bottom: 0;
+    left: 100px;
 }
 
 #letter-b {
     font-family: 'Geometric';
-    right: 10px;
     position: absolute;
     font-size: 8.5em;
     rotate: 180deg;
     transform: scaleX(-1);
-    bottom: 90px;
-    right: 150px;
+    bottom: 140px;
+    right: 65px;
 }
 
 
@@ -127,8 +131,7 @@
 #restart-prompt {
     /* position: absolute; */
     margin-top: 20px;
-    padding-bottom: 20px;
-    bottom: 20px;
+    padding-bottom: 150px;
     color: rgba(255, 255, 255, 0.3);
     font-family: 'Comfortaa', sans-serif;
     font-size: 0.9em;
