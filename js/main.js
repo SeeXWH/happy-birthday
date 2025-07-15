@@ -5,10 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatScene = document.getElementById('chat-scene');
     const universeScene = document.getElementById('universe-scene');
 
-    // Элементы для реального времени
     const lockscreenTime = document.querySelector('.lockscreen-time');
     const lockscreenDate = document.querySelector('.lockscreen-date');
 
+    // ИЗМЕНЕНИЕ: Убрана переменная sendSound
     const notificationSound = document.getElementById('notification-sound');
     const magicSound = document.getElementById('magic-sound');
     const clickSound = document.getElementById('click-sound');
@@ -28,19 +28,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const transitionTitle = document.getElementById('transition-title');
     const transitionText = document.getElementById('transition-text');
 
-    // Элементы сцен
     const planetSmileScene = document.getElementById('planet-smile-scene');
     const planetCalmScene = document.getElementById('planet-calm-scene');
     const planetFutureScene = document.getElementById('planet-future-scene');
-    const planetRomanceScene = document.getElementById('planet-romance-scene'); // Новая сцена
+    const planetRomanceScene = document.getElementById('planet-romance-scene');
 
     // --- СЦЕНАРИИ И ДАННЫЕ ---
-    const chatScript = [{ type: 'her', text: 'С Днем Рождения, любимая❤️', time: '08:30', needs_reply: true },
-    { type: 'my', text: 'Спасибо большое котик❤️❤️❤️', time: '08:32' },
-    { type: 'her', text: 'У меня для тебя есть сюрприз)', time: '08:32', needs_reply: true },
-    { type: 'my', text: 'Ух ты😏🥺', time: '08:33' },
-    { type: 'her', text: 'Я прошлой ночью видел удивительный сон и хочу тебе его показать🙏🙏🙏', time: '08:33' },
-    { type: 'her', text: 'Просто доверься и нажми на эту ссылку 👇', time: '08:34', link: true }];
+    const chatScript = [{ type: 'her', text: 'С Днем Рождения, любимая❤️', needs_reply: true },
+    { type: 'my', text: 'Спасибо большое котик❤️❤️❤️' },
+    { type: 'her', text: 'У меня для тебя есть сюрприз)', needs_reply: true },
+    { type: 'my', text: 'Ух ты😏🥺' },
+    { type: 'her', text: 'Я прошлой ночью видел удивительный сон и хочу тебе его показать🙏🙏🙏' },
+    { type: 'her', text: 'Просто доверься и нажми на эту ссылку 👇', link: true }];
 
     const contentData = {
         'object-smile': { title: 'Звезда твоей улыбки', text: 'Твоя улыбка способна осветить самый темный уголок космоса. Она сияет ярче любой звезды.' },
@@ -82,11 +81,9 @@ document.addEventListener('DOMContentLoaded', () => {
         switchScene(introScene, lockscreenScene);
     });
 
-
     lockscreenScene.addEventListener('click', () => {
-        // Звук разблокировки убран
         switchScene(lockscreenScene, chatScene);
-        startChatScene(); // Запускаем чат после перехода
+        startChatScene();
     });
 
     // --- АКТ II: ЧАТ ---
@@ -118,13 +115,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     });
 
+    // ИЗМЕНЕНИЕ: Логика воспроизведения звука
     function appendMessage(messageData) {
         const messageElement = document.createElement('div');
         messageElement.classList.add('chat-message', messageData.type === 'my' ? 'my-message' : 'her-message');
+
         const textP = document.createElement('p');
         textP.classList.add('message-text');
         textP.innerHTML = messageData.text;
         messageElement.appendChild(textP);
+
         if (messageData.link) {
             const linkBtn = document.createElement('a');
             linkBtn.classList.add('chat-link-btn');
@@ -133,21 +133,30 @@ document.addEventListener('DOMContentLoaded', () => {
             linkBtn.addEventListener('click', () => {
                 magicSound.play();
                 switchScene(chatScene, universeScene);
-                startUniverseScene(); // Запускаем вселенную после перехода
+                startUniverseScene();
             });
         }
+
         const timeSpan = document.createElement('span');
         timeSpan.classList.add('message-time');
-        timeSpan.textContent = messageData.time;
+
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        timeSpan.textContent = `${hours}:${minutes}`;
+
         messageElement.appendChild(timeSpan);
         chatContainer.appendChild(messageElement);
         chatContainer.scrollTop = chatContainer.scrollHeight;
-        if (messageData.type === 'her') {
+
+        // Воспроизводим звук для ЛЮБОГО сообщения
+        if (notificationSound) {
+            notificationSound.currentTime = 0;
             notificationSound.play();
         }
     }
 
-    // --- АКТ III: ВСЕЛЕННАЯ ---
+    // --- АКТ III: ВСЕЛЕННАЯ (без изменений) ---
     function startUniverseScene() {
         universeWrapper.classList.add('visible');
         if (!starsContainer.hasChildNodes()) {
@@ -169,23 +178,13 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < starsCount; i++) {
             const star = document.createElement('div');
             star.classList.add('static-star');
-            star.style.position = 'absolute';
-            star.style.width = `${Math.random() * 2 + 0.5}px`;
-            star.style.height = star.style.width;
-            star.style.borderRadius = '50%';
-            star.style.background = '#fff';
-            star.style.top = `${Math.random() * 100}%`;
-            star.style.left = `${Math.random() * 100}%`;
-            star.style.animationDelay = `${Math.random() * 4}s`;
+            star.style.cssText = `position: absolute; width: ${Math.random() * 2 + 0.5}px; height: ${star.style.width}; border-radius: 50%; background: #fff; top: ${Math.random() * 100}%; left: ${Math.random() * 100}%; animation-delay: ${Math.random() * 4}s;`;
             starsContainer.appendChild(star);
         }
         for (let i = 0; i < cometsCount; i++) {
             const comet = document.createElement('div');
             comet.classList.add('comet');
-            comet.style.top = `${Math.random() * 100}vh`;
-            comet.style.left = `${Math.random() * 100}vw`;
-            comet.style.animationDelay = `${Math.random() * 10}s`;
-            comet.style.animationDuration = `${5 + Math.random() * 5}s`;
+            comet.style.cssText = `top: ${Math.random() * 100}vh; left: ${Math.random() * 100}vw; animation-delay: ${Math.random() * 10}s; animation-duration: ${5 + Math.random() * 5}s;`;
             starsContainer.appendChild(comet);
         }
     }
@@ -195,7 +194,6 @@ document.addEventListener('DOMContentLoaded', () => {
         bigBangFlash.classList.remove('explode');
     });
 
-    // --- ЛОГИКА ПЕРЕХОДОВ И ПЛАНЕТ ---
     let currentPlanetObject = null;
     const visitedObjects = new Set();
     const delay = ms => new Promise(res => setTimeout(res, ms));
@@ -206,15 +204,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const planetId = planetElement.id;
         let targetScene;
 
-        if (planetId === 'object-smile') {
-            targetScene = planetSmileScene;
-        } else if (planetId === 'object-calm') {
-            targetScene = planetCalmScene;
-        } else if (planetId === 'object-future') {
-            targetScene = planetFutureScene;
-        } else if (planetId === 'object-romance') { // Логика для новой планеты
-            targetScene = planetRomanceScene;
-        } else {
+        if (planetId === 'object-smile') targetScene = planetSmileScene;
+        else if (planetId === 'object-calm') targetScene = planetCalmScene;
+        else if (planetId === 'object-future') targetScene = planetFutureScene;
+        else if (planetId === 'object-romance') targetScene = planetRomanceScene;
+        else {
             alert(`Интерактив для "${contentData[planetId].title}" еще в разработке!`);
             currentPlanetObject = null;
             return;
@@ -227,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
         transitionTitle.textContent = contentData[planetId].title;
         transitionText.textContent = contentData[planetId].text;
         transitionOverlay.classList.add('visible');
-        await delay(2500);
+        await delay(3200);
 
         universeScene.classList.remove('visible');
         targetScene.classList.add('visible');
@@ -235,30 +229,20 @@ document.addEventListener('DOMContentLoaded', () => {
         planetElement.classList.remove('zooming');
         universeScene.classList.remove('fading-out');
 
-        if (planetId === 'object-smile') {
-            startSmilePlanetLogic(transitionBackFromPlanet);
-        } else if (planetId === 'object-calm') {
-            startCalmPlanetLogic(transitionBackFromPlanet);
-        } else if (planetId === 'object-future') {
-            startFuturePlanetLogic(transitionBackFromPlanet);
-        } else if (planetId === 'object-romance') { // Запускаем логику новой планеты
-            startRomancePlanetLogic(transitionBackFromPlanet);
-        }
+        if (planetId === 'object-smile') startSmilePlanetLogic(transitionBackFromPlanet);
+        else if (planetId === 'object-calm') startCalmPlanetLogic(transitionBackFromPlanet);
+        else if (planetId === 'object-future') startFuturePlanetLogic(transitionBackFromPlanet);
+        else if (planetId === 'object-romance') startRomancePlanetLogic(transitionBackFromPlanet);
     }
 
     async function transitionBackFromPlanet() {
         const planetId = currentPlanetObject.id;
         let currentPlanetScene;
 
-        if (planetId === 'object-smile') {
-            currentPlanetScene = planetSmileScene;
-        } else if (planetId === 'object-calm') {
-            currentPlanetScene = planetCalmScene;
-        } else if (planetId === 'object-future') {
-            currentPlanetScene = planetFutureScene;
-        } else if (planetId === 'object-romance') { // Логика возврата с новой планеты
-            currentPlanetScene = planetRomanceScene;
-        }
+        if (planetId === 'object-smile') currentPlanetScene = planetSmileScene;
+        else if (planetId === 'object-calm') currentPlanetScene = planetCalmScene;
+        else if (planetId === 'object-future') currentPlanetScene = planetFutureScene;
+        else if (planetId === 'object-romance') currentPlanetScene = planetRomanceScene;
 
         transitionTitle.textContent = "Возвращаемся во вселенную...";
         transitionText.textContent = "";
@@ -271,7 +255,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!currentPlanetObject.classList.contains('visited')) {
             currentPlanetObject.classList.add('visited');
             visitedObjects.add(planetId);
-            // Проверяем, все ли планеты (кроме final-star и тех, что без интерактива) посещены
             const totalPlanets = Array.from(celestialObjects).filter(obj => obj.id !== 'final-star' && contentData[obj.id]).length;
             if (visitedObjects.size === totalPlanets) {
                 setTimeout(() => finalStar.classList.add('visible'), 1500);
@@ -279,19 +262,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         transitionOverlay.classList.remove('visible');
 
-        if (planetId === 'object-smile') {
-            resetSmilePlanet();
-        } else if (planetId === 'object-calm') {
-            resetCalmPlanet();
-        } else if (planetId === 'object-future') {
-            resetFuturePlanet();
-        } else if (planetId === 'object-romance') { // Сбрасываем состояние новой планеты
-            resetRomancePlanet();
-        }
+        if (planetId === 'object-smile') resetSmilePlanet();
+        else if (planetId === 'object-calm') resetCalmPlanet();
+        else if (planetId === 'object-future') resetFuturePlanet();
+        else if (planetId === 'object-romance') resetRomancePlanet();
+
         currentPlanetObject = null;
     }
 
-    // --- ОБРАБОТЧИКИ КЛИКОВ НА ОБЪЕКТЫ ВСЕЛЕННОЙ ---
     celestialObjects.forEach(obj => {
         if (obj.id === 'final-star') return;
         obj.addEventListener('click', () => {

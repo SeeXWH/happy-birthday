@@ -215,17 +215,19 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+/* ИЗМЕНЕНИЕ: Стили для отображения аватара */
 .chat-avatar {
     width: 40px;
     height: 40px;
-    background-color: #6a8277;
     border-radius: 50%;
-    color: #fff;
-    font-size: 20px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* Стили для фонового изображения */
+    background-image: url('../assets/img/avatar.png');
+    /* Путь к вашей аватарке */
+    background-size: cover;
+    /* Изображение покроет весь элемент */
+    background-position: center;
+    /* Центрируем изображение */
+    background-repeat: no-repeat;
 }
 
 .chat-contact-name {
@@ -287,6 +289,8 @@ body {
 .message-text {
     font-size: 15px;
     line-height: 1.4;
+    word-wrap: break-word;
+    /* Для переноса длинных слов */
 }
 
 .message-time {
@@ -348,7 +352,6 @@ body {
 
 /* --- ОСТАЛЬНЫЕ СТИЛИ (ВСЕЛЕННАЯ, ПЛАНЕТЫ И Т.Д.) --- */
 /* ... (здесь идет остальная часть вашего CSS без изменений) ... */
-/* --- АКТ III: СЦЕНА ВСЕЛЕННОЙ --- */
 #universe-scene {
     background-color: transparent;
     font-family: 'Comfortaa', sans-serif;
@@ -719,7 +722,6 @@ body {
     opacity: 0.8;
 }
 
-/* --- ОБЩИЕ СТИЛИ ДЛЯ ПЛАНЕТАРНЫХ СЦЕН --- */
 .planet-scene {
     opacity: 0;
     visibility: hidden;
@@ -809,7 +811,6 @@ body {
     }
 }
 
-/* Адаптация */
 @media (max-width: 768px) {
     .lockscreen-time {
         font-size: 70px;

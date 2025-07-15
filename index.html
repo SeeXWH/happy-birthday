@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="css/planet-smile.css">
     <link rel="stylesheet" href="css/planet-calm.css">
     <link rel="stylesheet" href="css/planet-future.css">
-    <link rel="stylesheet" href="css/planet-romance.css"> <!-- Стили для новой планеты -->
+    <link rel="stylesheet" href="css/planet-romance.css">
 </head>
 
 <body>
@@ -29,12 +29,13 @@
         </div>
     </section>
 
+    <!-- ИЗМЕНЕНИЕ: Убран лишний аудиофайл для отправки -->
     <audio id="unlock-sound" src="assets/audio/iphone-unlock.mp3"></audio>
     <audio id="notification-sound" src="assets/audio/notification.mp3"></audio>
     <audio id="magic-sound" src="assets/audio/magic-transition.mp3"></audio>
     <audio id="click-sound" src="assets/audio/chime.mp3"></audio>
     <audio id="crystal-sound" src="assets/audio/crystal-chime.mp3"></audio>
-    <audio id="rift-sound" src="assets/audio/whoosh.mp3" preload="auto"></audio> <!-- Аудио для свайпа -->
+    <audio id="rift-sound" src="assets/audio/whoosh.mp3" preload="auto"></audio>
     <audio id="prediction-sound" src="assets/audio/prediction-sound.mp3"></audio>
 
     <!-- HTML-структура сцен -->
@@ -94,7 +95,7 @@
 
     <section id="chat-scene" class="scene">
         <div class="chat-header">
-            <div class="chat-avatar">А</div>
+            <div class="chat-avatar"></div>
             <div class="chat-contact-name">Андрюш<span class="heart-emoji">❤</span></div>
         </div>
         <div id="chat-container"></div>
@@ -103,8 +104,8 @@
         </div>
     </section>
 
+    <!-- Остальная часть HTML без изменений -->
     <section id="planet-smile-scene" class="planet-scene">
-        <!-- Содержимое планеты улыбки... -->
         <div class="sky">
             <div class="cloud c1"></div>
             <div class="cloud c2"></div>
@@ -140,19 +141,14 @@
             <div class="trunk"></div>
             <div class="leaves"></div>
         </div>
-
-        <!-- ДОБАВЛЕННЫЙ ТЕКСТ-ПОДСКАЗКА -->
         <p id="smile-prompt">Нажми на сердце...</p>
-
         <div class="glowing-heart"></div>
         <div class="quote-container">
             <p class="quote-text"></p>
         </div>
         <button id="smile-scene-back-btn" class="scene-back-btn">Вернуться во вселенную</button>
     </section>
-
     <section id="planet-calm-scene" class="planet-scene">
-        <!-- Содержимое планеты спокойствия... -->
         <div class="calm-sky">
             <div class="aurora">
                 <div class="aurora-band"></div>
@@ -169,28 +165,23 @@
         <div class="mountain mountain-near-2"></div>
         <div class="mountain mountain-near-3"></div>
         <div id="crystal-container">
-            <div class="crystal-interactive crystal-1"><svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 256 256">
+            <div class="crystal-interactive crystal-1"><svg viewBox="0 0 256 256">
                     <path
                         d="M211.3,86.9l-40.5,15.7l7.5-47.8L120.6,8L62.9,54.7l13.3,84.4l-35.5-13.9l-27.8,42.1l40,80.6h133.9l29.6-59.8l26.7-52.7 L211.3,86.9z M204,104.1l-0.3,21.9l-17.6-6.5L204,104.1z M81.1,238l-20.2-83l-14.8-17.2l31.9,13L91.8,238H81.1z M77,56.1l28.8-23.8 l-10.5,25L77,56.1z M140.7,238l7.1-71.3l6.3-20.1L127,162.3V238h-11.3l-9.6-178.9l14.6-38.2l47.2,37.9l-13.8,87.8l21,23.2L153,238 H140.7z M179.9,238h-8.4l42.9-107.9l-0.5-21l17.7,27L179.9,238z" />
                 </svg></div>
-            <div class="crystal-interactive crystal-2"><svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 256 256">
+            <div class="crystal-interactive crystal-2"><svg viewBox="0 0 256 256">
                     <path
                         d="M211.3,86.9l-40.5,15.7l7.5-47.8L120.6,8L62.9,54.7l13.3,84.4l-35.5-13.9l-27.8,42.1l40,80.6h133.9l29.6-59.8l26.7-52.7 L211.3,86.9z M204,104.1l-0.3,21.9l-17.6-6.5L204,104.1z M81.1,238l-20.2-83l-14.8-17.2l31.9,13L91.8,238H81.1z M77,56.1l28.8-23.8 l-10.5,25L77,56.1z M140.7,238l7.1-71.3l6.3-20.1L127,162.3V238h-11.3l-9.6-178.9l14.6-38.2l47.2,37.9l-13.8,87.8l21,23.2L153,238 H140.7z M179.9,238h-8.4l42.9-107.9l-0.5-21l17.7,27L179.9,238z" />
                 </svg></div>
-            <div class="crystal-interactive crystal-3"><svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 256 256">
+            <div class="crystal-interactive crystal-3"><svg viewBox="0 0 256 256">
                     <path
                         d="M211.3,86.9l-40.5,15.7l7.5-47.8L120.6,8L62.9,54.7l13.3,84.4l-35.5-13.9l-27.8,42.1l40,80.6h133.9l29.6-59.8l26.7-52.7 L211.3,86.9z M204,104.1l-0.3,21.9l-17.6-6.5L204,104.1z M81.1,238l-20.2-83l-14.8-17.2l31.9,13L91.8,238H81.1z M77,56.1l28.8-23.8 l-10.5,25L77,56.1z M140.7,238l7.1-71.3l6.3-20.1L127,162.3V238h-11.3l-9.6-178.9l14.6-38.2l47.2,37.9l-13.8,87.8l21,23.2L153,238 H140.7z M179.9,238h-8.4l42.9-107.9l-0.5-21l17.7,27L179.9,238z" />
                 </svg></div>
-            <div class="crystal-interactive crystal-4"><svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 256 256">
+            <div class="crystal-interactive crystal-4"><svg viewBox="0 0 256 256">
                     <path
                         d="M211.3,86.9l-40.5,15.7l7.5-47.8L120.6,8L62.9,54.7l13.3,84.4l-35.5-13.9l-27.8,42.1l40,80.6h133.9l29.6-59.8l26.7-52.7 L211.3,86.9z M204,104.1l-0.3,21.9l-17.6-6.5L204,104.1z M81.1,238l-20.2-83l-14.8-17.2l31.9,13L91.8,238H81.1z M77,56.1l28.8-23.8 l-10.5,25L77,56.1z M140.7,238l7.1-71.3l6.3-20.1L127,162.3V238h-11.3l-9.6-178.9l14.6-38.2l47.2,37.9l-13.8,87.8l21,23.2L153,238 H140.7z M179.9,238h-8.4l42.9-107.9l-0.5-21l17.7,27L179.9,238z" />
                 </svg></div>
-            <div class="crystal-interactive crystal-5"><svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 256 256">
+            <div class="crystal-interactive crystal-5"><svg viewBox="0 0 256 256">
                     <path
                         d="M211.3,86.9l-40.5,15.7l7.5-47.8L120.6,8L62.9,54.7l13.3,84.4l-35.5-13.9l-27.8,42.1l40,80.6h133.9l29.6-59.8l26.7-52.7 L211.3,86.9z M204,104.1l-0.3,21.9l-17.6-6.5L204,104.1z M81.1,238l-20.2-83l-14.8-17.2l31.9,13L91.8,238H81.1z M77,56.1l28.8-23.8 l-10.5,25L77,56.1z M140.7,238l7.1-71.3l6.3-20.1L127,162.3V238h-11.3l-9.6-178.9l14.6-38.2l47.2,37.9l-13.8,87.8l21,23.2L153,238 H140.7z M179.9,238h-8.4l42.9-107.9l-0.5-21l17.7,27L179.9,238z" />
                 </svg></div>
@@ -203,9 +194,7 @@
         </div>
         <button id="calm-scene-back-btn" class="scene-back-btn">Вернуться во вселенную</button>
     </section>
-
     <section id="planet-future-scene" class="planet-scene">
-        <!-- Содержимое планеты будущего... -->
         <div id="future-stars-container"></div>
         <div class="shooting-stars">
             <div class="star-fall"></div>
@@ -225,37 +214,27 @@
         <div id="prediction-prompt">Коснись сферы, чтобы увидеть свое будущее...</div>
         <button id="future-scene-back-btn" class="scene-back-btn">Вернуться во вселенную</button>
     </section>
-
-    <!-- Секция для планеты "Туманность Сердца" -->
     <section id="planet-romance-scene" class="planet-scene">
-        <!-- НОВЫЙ КОНТЕЙНЕР ДЛЯ ФОНОВЫХ ЗВЕЗД-СЕРДЕЧЕК -->
         <div id="romance-hearts-background"></div>
-
         <div id="romance-svg-container"></div>
-
         <div id="romance-nebula-container">
             <div class="nebula-layer layer-1"></div>
             <div class="nebula-layer layer-2"></div>
             <div class="nebula-layer layer-3"></div>
         </div>
-
         <div id="romance-text-container">
             <p id="romance-quality-text"></p>
             <p id="romance-phrase-text"></p>
         </div>
-
         <div id="romance-prompt-container">
             <p id="romance-prompt-text"></p>
         </div>
-
         <button id="romance-scene-back-btn" class="scene-back-btn">Вернуться во вселенную</button>
     </section>
-
     <div id="transition-overlay">
         <h2 id="transition-title"></h2>
         <p id="transition-text"></p>
     </div>
-
     <main id="universe-scene" class="scene">
         <div id="universe-wrapper">
             <div id="stars-container"></div>
@@ -284,7 +263,7 @@
     <script src="js/planet-smile.js"></script>
     <script src="js/planet-calm.js"></script>
     <script src="js/planet-future.js"></script>
-    <script src="js/planet-romance.js"></script> <!-- Скрипт для новой планеты -->
+    <script src="js/planet-romance.js"></script>
 </body>
 
 </html>
