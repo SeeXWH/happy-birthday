@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    // Глобальная настройка громкости
     const allAudioElements = document.querySelectorAll('audio');
     const globalVolume = 0.5;
     allAudioElements.forEach(audio => {
@@ -37,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const planetCalmScene = document.getElementById('planet-calm-scene');
     const planetFutureScene = document.getElementById('planet-future-scene');
     const planetRomanceScene = document.getElementById('planet-romance-scene');
+    const planetSupportScene = document.getElementById('planet-support-scene');
 
     // --- СЦЕНАРИИ И ДАННЫЕ ---
     const chatScript = [{ type: 'her', text: 'С Днем Рождения, любимая❤️', needs_reply: true },
@@ -47,12 +50,12 @@ document.addEventListener('DOMContentLoaded', () => {
     { type: 'her', text: 'Просто доверься и нажми на эту ссылку 👇', link: true }];
 
     const contentData = {
-        'object-smile': { title: 'Звезда твоей улыбки', text: 'Твоя улыбка - самое прекрасное что есть во вселенной. И она сияет ярче самых ярких звезд :)' },
-        'object-calm': { title: 'Ледяная планета спокойствия', text: 'Твоей выдержке и спокойствию может позавидовать каждый стоик в мире. Ты такая же спокойная и безмятежная, как и эта планета!' },
-        'object-future': { title: 'Звезда-путеводитель', text: 'Это твое будущее! Прекрасное и спокойное как гладь воды на озере. У тебя все полуится, я верю!!!' },
-        'object-romance': { title: 'Туманность Сердца', text: 'Это самое красивое, что я нашел в твоей вселенной. Облако нежности, тепла и романтики, которое ты создаешь вокруг себя ❤️' },
-        'object-support': { title: 'Двойная звезда поддержки', text: 'Как эти две звезды, вращающиеся вместе, ты всегда рядом, чтобы поддержать.' },
-        'final-star': { title: 'Сердце Вселенной', text: 'Это был мой сон. Но он - лишь отражение того, какая ты на самом деле. Удивительная, многогранная и бесконечно любимая. С Днем Рождения❤️❤️❤️' }
+        'object-smile': { title: 'Звезда твоей улыбки', text: 'Твоя улыбка способна осветить самый темный уголок космоса. Она сияет ярче любой звезды.' },
+        'object-calm': { title: 'Ледяная планета спокойствия', text: 'Рядом с тобой я нахожу умиротворение. Ты как эта тихая, красивая планета, где нет бурь и тревог.' },
+        'object-future': { title: 'Звезда-путеводитель', text: 'Это твое будущее. Прекрасное и безмятежное как гладь воды на озере.' },
+        'object-romance': { title: 'Туманность Сердца', text: 'Это самое красивое, что я нашел в твоей вселенной. Облако нежности, тепла и романтики, которое ты создаешь вокруг.' },
+        'object-support': { title: 'Двойная звезда поддержки', text: 'Твоя поддержка — как этот ритм. Ровная, спокойная и бесконечная. Она просто есть, и от этого весь мир приходит в гармонию.' },
+        'final-star': { title: 'Сердце Вселенной', text: 'Это был мой сон. Но он - лишь отражение того, какая ты на самом деле. Удивительная, многогранная и бесконечно любимая. С Днем Рождения!' }
     };
 
     // --- ОБНОВЛЕНИЕ ВРЕМЕНИ И ДАТЫ ---
@@ -143,13 +146,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const timeSpan = document.createElement('span');
         timeSpan.classList.add('message-time');
-
         const now = new Date();
         const hours = now.getHours().toString().padStart(2, '0');
         const minutes = now.getMinutes().toString().padStart(2, '0');
         timeSpan.textContent = `${hours}:${minutes}`;
-
         messageElement.appendChild(timeSpan);
+
         chatContainer.appendChild(messageElement);
         chatContainer.scrollTop = chatContainer.scrollHeight;
 
@@ -180,8 +182,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const starsCount = 200, cometsCount = 7;
         for (let i = 0; i < starsCount; i++) {
             const star = document.createElement('div');
+            const starSize = Math.random() * 2 + 0.5; // Рассчитываем размер звезды один раз
             star.classList.add('static-star');
-            star.style.cssText = `position: absolute; width: ${Math.random() * 2 + 0.5}px; height: ${star.style.width}; border-radius: 50%; background: #fff; top: ${Math.random() * 100}%; left: ${Math.random() * 100}%; animation-delay: ${Math.random() * 4}s;`;
+            // Используем переменную starSize для ширины и высоты
+            star.style.cssText = `position: absolute; width: ${starSize}px; height: ${starSize}px; border-radius: 50%; background: #fff; top: ${Math.random() * 100}%; left: ${Math.random() * 100}%; animation-delay: ${Math.random() * 4}s;`;
             starsContainer.appendChild(star);
         }
         for (let i = 0; i < cometsCount; i++) {
@@ -211,11 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (planetId === 'object-calm') targetScene = planetCalmScene;
         else if (planetId === 'object-future') targetScene = planetFutureScene;
         else if (planetId === 'object-romance') targetScene = planetRomanceScene;
-        else {
-            alert(`Интерактив для "${contentData[planetId].title}" еще в разработке!`);
-            currentPlanetObject = null;
-            return;
-        }
+        else if (planetId === 'object-support') targetScene = planetSupportScene;
+        else { return; } // Если планеты нет, ничего не делаем
 
         universeScene.classList.add('fading-out');
         planetElement.classList.add('zooming');
@@ -236,6 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (planetId === 'object-calm') startCalmPlanetLogic(transitionBackFromPlanet);
         else if (planetId === 'object-future') startFuturePlanetLogic(transitionBackFromPlanet);
         else if (planetId === 'object-romance') startRomancePlanetLogic(transitionBackFromPlanet);
+        else if (planetId === 'object-support') startSupportPlanetLogic(transitionBackFromPlanet);
     }
 
     async function transitionBackFromPlanet() {
@@ -246,6 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (planetId === 'object-calm') currentPlanetScene = planetCalmScene;
         else if (planetId === 'object-future') currentPlanetScene = planetFutureScene;
         else if (planetId === 'object-romance') currentPlanetScene = planetRomanceScene;
+        else if (planetId === 'object-support') currentPlanetScene = planetSupportScene;
 
         transitionTitle.textContent = "Возвращаемся во вселенную...";
         transitionText.textContent = "";
@@ -269,6 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (planetId === 'object-calm') resetCalmPlanet();
         else if (planetId === 'object-future') resetFuturePlanet();
         else if (planetId === 'object-romance') resetRomancePlanet();
+        else if (planetId === 'object-support') resetSupportPlanet();
 
         currentPlanetObject = null;
     }

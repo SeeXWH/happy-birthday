@@ -1,0 +1,156 @@
+/* --- СЦЕНА: ПЛАНЕТА ПОДДЕРЖКИ (РИТМ ГАРМОНИИ) --- */
+
+#planet-support-scene {
+    /* ИЗМЕНЕНО: Используем CSS-переменные для плавного перехода */
+    --sky-gradient-start: #00001a;
+    --sky-gradient-end: #00001a;
+
+    background: linear-gradient(to bottom, var(--sky-gradient-start), var(--sky-gradient-end));
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* ИЗМЕНЕНО: Добавляем плавный переход для фона */
+    transition: --sky-gradient-start 3s ease-in-out, --sky-gradient-end 3s ease-in-out;
+}
+
+/* ДОБАВЛЕНО: Класс для активации рассвета */
+#planet-support-scene.dawn-sky {
+    --sky-gradient-start: #87CEEB;
+    /* Небесно-голубой */
+    --sky-gradient-end: #FFB6C1;
+    /* Светло-розовый */
+}
+
+
+#support-stars-container {
+    position: relative;
+    width: 500px;
+    height: 250px;
+}
+
+/* Общие стили для звезд (без изменений) */
+.support-star {
+    position: absolute;
+    top: 50%;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.star-gold {
+    left: 10%;
+    transform: translateY(-50%);
+    background: radial-gradient(circle, #fff8e1, #ffecb3, #ffd54f);
+    box-shadow: 0 0 20px #fff, 0 0 40px #ffc107, 0 0 70px #ff9800;
+}
+
+.star-blue {
+    right: 10%;
+    transform: translateY(-50%);
+    background: radial-gradient(circle, #e3f2fd, #bbdefb, #64b5f6);
+    box-shadow: 0 0 20px #fff, 0 0 40px #2196f3, 0 0 70px #0d47a1;
+}
+
+/* Стили для SVG-контейнера и линий */
+#connection-svg-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    overflow: visible;
+}
+
+.dynamic-line {
+    stroke-width: 2px;
+    fill: none;
+    /* ИЗМЕНЕНО: Цвет и тень теперь задаются в JS, здесь оставляем только анимацию */
+    animation: fade-line 2.5s ease-in-out;
+}
+
+@keyframes fade-line {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 0;
+    }
+}
+
+
+/* --- Анимации --- */
+
+/* ИЗМЕНЕНО: Волна теперь гарантированно в центре контейнера, что и является центром между звёзд */
+#support-stars-container::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Это центрирует элемент относительно родителя */
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    box-shadow: 0 0 80px 40px rgba(200, 190, 255, 0.3);
+    opacity: 0;
+}
+
+@keyframes pulse-stars {
+
+    0%,
+    100% {
+        transform: translateY(-50%) scale(1);
+        filter: brightness(1);
+    }
+
+    50% {
+        transform: translateY(-50%) scale(1.1);
+        filter: brightness(1.3);
+    }
+}
+
+@keyframes light-wave {
+    from {
+        transform: scale(0.5);
+        opacity: 0.8;
+    }
+
+    to {
+        transform: scale(5);
+        opacity: 0;
+    }
+}
+
+.pulsing .support-star {
+    animation: pulse-stars 2.5s ease-in-out infinite;
+}
+
+.pulsing#support-stars-container::after {
+    animation: light-wave 2.5s ease-out infinite;
+}
+
+/* Позиционирование текста и кнопки (без изменений) */
+#planet-support-scene .quote-container {
+    top: 25%;
+    z-index: 20;
+}
+
+#planet-support-scene .scene-back-btn {
+    bottom: 20%;
+    z-index: 20;
+}

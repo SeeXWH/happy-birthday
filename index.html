@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="css/planet-calm.css">
     <link rel="stylesheet" href="css/planet-future.css">
     <link rel="stylesheet" href="css/planet-romance.css">
+    <link rel="stylesheet" href="css/planet-support.css">
 </head>
 
 <body>
@@ -29,7 +30,7 @@
         </div>
     </section>
 
-    <!-- ИЗМЕНЕНИЕ: Убран лишний аудиофайл для отправки -->
+    <!-- Аудиофайлы -->
     <audio id="unlock-sound" src="assets/audio/iphone-unlock.mp3"></audio>
     <audio id="notification-sound" src="assets/audio/notification.mp3"></audio>
     <audio id="magic-sound" src="assets/audio/magic-transition.mp3"></audio>
@@ -37,6 +38,8 @@
     <audio id="crystal-sound" src="assets/audio/crystal-chime.mp3"></audio>
     <audio id="rift-sound" src="assets/audio/whoosh.mp3" preload="auto"></audio>
     <audio id="prediction-sound" src="assets/audio/prediction-sound.mp3"></audio>
+    <audio id="pulse-sound" src="assets/audio/pulse-sound.mp3"></audio>
+
 
     <!-- HTML-структура сцен -->
     <section id="lockscreen-scene" class="scene">
@@ -76,7 +79,7 @@
                 <div class="notification-icon" style="color: #1DB954;"><i class="fab fa-spotify"></i></div>
                 <div class="notification-content">
                     <div class="app-name">Spotify</div>
-                    <div class="sender-name">Рекомендация: Radiohead - No Surprises</div>
+                    <div class="sender-name">Составили для вас плейлист</div>
                 </div>
             </div>
             <div class="notification">
@@ -104,7 +107,6 @@
         </div>
     </section>
 
-    <!-- Остальная часть HTML без изменений -->
     <section id="planet-smile-scene" class="planet-scene">
         <div class="sky">
             <div class="cloud c1"></div>
@@ -148,6 +150,7 @@
         </div>
         <button id="smile-scene-back-btn" class="scene-back-btn">Вернуться во вселенную</button>
     </section>
+
     <section id="planet-calm-scene" class="planet-scene">
         <div class="calm-sky">
             <div class="aurora">
@@ -194,6 +197,7 @@
         </div>
         <button id="calm-scene-back-btn" class="scene-back-btn">Вернуться во вселенную</button>
     </section>
+
     <section id="planet-future-scene" class="planet-scene">
         <div id="future-stars-container"></div>
         <div class="shooting-stars">
@@ -214,6 +218,7 @@
         <div id="prediction-prompt">Коснись сферы, чтобы увидеть свое будущее...</div>
         <button id="future-scene-back-btn" class="scene-back-btn">Вернуться во вселенную</button>
     </section>
+
     <section id="planet-romance-scene" class="planet-scene">
         <div id="romance-hearts-background"></div>
         <div id="romance-svg-container"></div>
@@ -231,10 +236,26 @@
         </div>
         <button id="romance-scene-back-btn" class="scene-back-btn">Вернуться во вселенную</button>
     </section>
+
+    <section id="planet-support-scene" class="planet-scene">
+        <div id="support-stars-container">
+            <div class="support-star star-gold"></div>
+            <!-- ИЗМЕНЕНО: Добавлен атрибут viewBox -->
+            <svg id="connection-svg-container" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+            <div class="support-star star-blue"></div>
+        </div>
+        <div class="quote-container">
+            <p class="quote-text"></p>
+        </div>
+        <button id="support-scene-back-btn" class="scene-back-btn">Вернуться во вселенную</button>
+    </section>
+
+
     <div id="transition-overlay">
         <h2 id="transition-title"></h2>
         <p id="transition-text"></p>
     </div>
+
     <main id="universe-scene" class="scene">
         <div id="universe-wrapper">
             <div id="stars-container"></div>
@@ -264,6 +285,7 @@
     <script src="js/planet-calm.js"></script>
     <script src="js/planet-future.js"></script>
     <script src="js/planet-romance.js"></script>
+    <script src="js/planet-support.js"></script>
 </body>
 
 </html>
