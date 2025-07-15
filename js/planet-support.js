@@ -17,7 +17,7 @@ const lineColors = [
 ];
 
 let isPulsing = false;
-let availableQuotes = []; // Массив для хранения уникальных цитат в текущем цикле
+let availableQuotes = []; // Массив для хранения уникальных \цитат в текущем цикле
 
 // Функция для сброса и перемешивания доступных цитат
 function resetAndShuffleQuotes() {
