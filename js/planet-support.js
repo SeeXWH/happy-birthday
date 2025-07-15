@@ -13,8 +13,18 @@ const lineColors = [
     '#ff5555', '#a2d2ff', '#f8f8f2', '#4dffff'
 ];
 
-let currentQuoteIndex = -1;
 let isPulsing = false;
+let availableQuotes = []; // Массив для хранения уникальных цитат в текущем цикле
+
+// Функция для сброса и перемешивания доступных цитат
+function resetAndShuffleQuotes() {
+    availableQuotes = [...supportQuotes]; // Копируем все цитаты
+    // Перемешиваем массив (алгоритм Фишера-Йетса)
+    for (let i = availableQuotes.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [availableQuotes[i], availableQuotes[j]] = [availableQuotes[j], availableQuotes[i]];
+    }
+}
 
 // Функция для создания фоновых звезд
 function createBackgroundStars() {
@@ -36,16 +46,19 @@ function createBackgroundStars() {
     }
 }
 
-// Функция для обновления цитаты
+// Функция для обновления цитаты (ИЗМЕНЕНА)
 function updateQuoteText() {
     const quoteText = document.querySelector('#planet-support-scene .quote-text');
-    let newIndex;
-    do {
-        newIndex = Math.floor(Math.random() * supportQuotes.length);
-    } while (newIndex === currentQuoteIndex && supportQuotes.length > 1);
-    currentQuoteIndex = newIndex;
 
-    quoteText.textContent = supportQuotes[currentQuoteIndex];
+    // Если доступные цитаты закончились, начинаем новый цикл
+    if (availableQuotes.length === 0) {
+        resetAndShuffleQuotes();
+    }
+
+    // Берём последнюю цитату из перемешанного массива и удаляем её
+    const selectedQuote = availableQuotes.pop();
+
+    quoteText.textContent = selectedQuote;
 }
 
 // Функция для рисования динамических линий
@@ -143,7 +156,9 @@ function resetSupportPlanet() {
     const bgStarsContainer = document.getElementById('support-bg-stars');
 
     isPulsing = false;
-    currentQuoteIndex = -1;
+
+    // Сбрасываем и перемешиваем цитаты при каждом сбросе сцены
+    resetAndShuffleQuotes();
 
     scene.classList.remove('dawn-sky');
     if (promptText) promptText.classList.remove('hidden');

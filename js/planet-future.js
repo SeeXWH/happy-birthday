@@ -15,7 +15,7 @@ const futurePredictions = [
 
 let isPredicting = false;
 
-// ДОБАВЛЕНО: Функция для создания звезд на фоне
+// Функция для создания звезд на фоне
 function createFutureStars(container) {
     if (!container) return;
     const starsCount = 100;
@@ -25,7 +25,6 @@ function createFutureStars(container) {
         const size = Math.random() * 2 + 1;
         star.style.width = `${size}px`;
         star.style.height = `${size}px`;
-        // Звезды только в верхней части (небе)
         star.style.top = `${Math.random() * 60}%`;
         star.style.left = `${Math.random() * 100}%`;
         star.style.animationDelay = `${Math.random() * 5}s`;
@@ -43,6 +42,10 @@ function startFuturePlanetLogic(goBackFunction) {
     const promptElement = document.getElementById('prediction-prompt');
     let firstPredictionMade = false;
 
+    // ДОБАВЛЕНО: Создаем копию массива предсказаний, из которой будем брать фразы.
+    // Это позволяет удалять использованные фразы, не трогая основной массив.
+    let availablePredictions = [...futurePredictions];
+
     // Сбрасываем состояние и создаем звезды
     resetFuturePlanet();
     createFutureStars(starsContainer);
@@ -51,8 +54,6 @@ function startFuturePlanetLogic(goBackFunction) {
         if (isPredicting) return;
 
         isPredicting = true;
-
-        // ИЗМЕНЕНО: Скрываем подсказку каждый раз, когда начинается предсказание
         promptElement.classList.add('hidden');
         textElement.classList.remove('visible');
 
@@ -61,24 +62,29 @@ function startFuturePlanetLogic(goBackFunction) {
             predictionSound.play().catch(error => console.error("Ошибка воспроизведения звука:", error));
         }
 
-        // ДОБАВЛЕНО: Добавляем класс к сцене для анимации звезд
         planetFutureScene.classList.add('is-predicting');
         sphere.classList.add('is-predicting');
 
         setTimeout(() => {
-            const randomIndex = Math.floor(Math.random() * futurePredictions.length);
-            const randomPrediction = futurePredictions[randomIndex];
+            // ДОБАВЛЕНО: Если все предсказания были показаны, начинаем цикл заново.
+            if (availablePredictions.length === 0) {
+                availablePredictions = [...futurePredictions];
+            }
+
+            // ИЗМЕНЕНО: Выбираем случайный индекс из массива доступных (еще не показанных) предсказаний.
+            const randomIndex = Math.floor(Math.random() * availablePredictions.length);
+
+            // ИЗМЕНЕНО: Используем splice, чтобы получить предсказание и сразу удалить его из массива доступных.
+            // Это гарантирует, что оно не повторится, пока не будут показаны все остальные.
+            const randomPrediction = availablePredictions.splice(randomIndex, 1)[0];
 
             textElement.textContent = randomPrediction;
             textElement.classList.add('visible');
 
-            // ДОБАВЛЕНО: Убираем класс со сцены, чтобы звезды успокоились
             planetFutureScene.classList.remove('is-predicting');
             sphere.classList.remove('is-predicting');
 
             isPredicting = false;
-
-            // ИЗМЕНЕНО: Показываем подсказку обратно, когда предсказание закончилось
             promptElement.classList.remove('hidden');
 
             if (!firstPredictionMade) {
@@ -103,7 +109,7 @@ function resetFuturePlanet() {
     isPredicting = false;
 
     if (starsContainer) {
-        starsContainer.innerHTML = ''; // Очищаем старые звезды
+        starsContainer.innerHTML = '';
     }
 
     textElement.textContent = "";

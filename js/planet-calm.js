@@ -69,6 +69,9 @@ function spawnPenguins() {
 
 function startCalmPlanetLogic(goBackFunction) {
     firstClickOnCalm = true;
+    // --- ИЗМЕНЕНИЕ 1: Создаем копию массива с цитатами, которую можно изменять ---
+    let availableQuotes = [...calmQuotes];
+
     createSnowfall();
     spawnPenguins();
 
@@ -94,22 +97,35 @@ function startCalmPlanetLogic(goBackFunction) {
 
             quoteTextCalm.classList.add('fading-out');
             setTimeout(() => {
-                const randomIndex = Math.floor(Math.random() * calmQuotes.length);
-                quoteTextCalm.textContent = calmQuotes[randomIndex];
+                // --- ИЗМЕНЕНИЕ 2: Новая логика выбора уникальной цитаты ---
+
+                // Если все цитаты были показаны, заполняем массив снова, чтобы можно было начать сначала.
+                if (availableQuotes.length === 0) {
+                    availableQuotes = [...calmQuotes];
+                }
+
+                // Выбираем случайный индекс из ОСТАВШИХСЯ цитат
+                const randomIndex = Math.floor(Math.random() * availableQuotes.length);
+
+                // Используем splice, чтобы получить цитату и СРАЗУ ЖЕ удалить ее из временного массива.
+                const chosenQuote = availableQuotes.splice(randomIndex, 1)[0];
+
+                // Отображаем выбранную уникальную цитату
+                quoteTextCalm.textContent = chosenQuote;
+
+                // --- КОНЕЦ ИЗМЕНЕНИЙ ---
+
                 quoteTextCalm.classList.remove('fading-out');
             }, 300);
 
             if (firstClickOnCalm) {
                 calmPrompt.classList.add('hidden');
                 quoteContainerCalm.classList.add('visible');
-                // --- ИЗМЕНЕНИЕ: Мы больше НЕ показываем здесь кнопку назад ---
                 firstClickOnCalm = false;
             }
 
-            // --- НОВАЯ ЛОГИКА: Проверяем, все ли кристаллы активированы ---
             const activatedCrystals = document.querySelectorAll('#planet-calm-scene .crystal-interactive.is-glowing');
             if (activatedCrystals.length === crystals.length) {
-                // Задержка для красоты, чтобы кнопка не появлялась мгновенно
                 setTimeout(() => {
                     calmSceneBackBtn.classList.add('visible');
                 }, 500);

@@ -1,4 +1,3 @@
-// Данные для планеты улыбки
 const smileQuotes = [
     "Твоя улыбка светиться радостью и искренностью",
     "Когда ты улыбаешься, мир замирает",
@@ -16,16 +15,23 @@ const svgBirdHTML = `<svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewB
 // --- ЛОГИКА ПЛАНЕТЫ УЛЫБКИ ---
 let firstClickOnSmile = true;
 let birdIntervalId = null;
+// Переменная для хранения индекса последней показанной цитаты
+let lastSmileQuoteIndex = -1;
 
 function spawnBirds() {
+    // Предполагается, что в вашем HTML есть элемент с id="bird-container"
     const birdContainer = document.getElementById('bird-container');
+    if (!birdContainer) return; // Защита от отсутствия элемента
+
     const flockSize = Math.floor(Math.random() * 4) + 1;
+    // Предполагается, что в вашем CSS есть анимации с именами fly-path-1, fly-path-2, fly-path-3
     const flightPath = `fly-path-${Math.floor(Math.random() * 3) + 1}`;
     const baseDuration = Math.random() * 5 + 12;
     const startTop = Math.random() * 30 + 10;
+
     for (let i = 0; i < flockSize; i++) {
         const bird = document.createElement('div');
-        bird.className = 'bird';
+        bird.className = 'bird'; // Предполагается, что в CSS есть стили для класса .bird
         bird.innerHTML = svgBirdHTML;
         bird.style.top = `${startTop + (Math.random() * 6 - 3)}%`;
         bird.style.transform = `scale(${Math.random() * 0.4 + 0.8})`;
@@ -40,26 +46,46 @@ function spawnBirds() {
 
 function startSmilePlanetLogic(goBackFunction) {
     firstClickOnSmile = true;
+    // Сбрасываем индекс, чтобы при новом запуске не было повтора с самого последнего раза
+    lastSmileQuoteIndex = -1;
     spawnBirds();
+
+    // Предполагается, что эти элементы существуют в вашем HTML внутри сцены #planet-smile-scene
     const glowingHeart = document.querySelector('#planet-smile-scene .glowing-heart');
     const quoteContainerSmile = document.querySelector('#planet-smile-scene .quote-container');
     const quoteTextSmile = document.querySelector('#planet-smile-scene .quote-text');
     const smileSceneBackBtn = document.getElementById('smile-scene-back-btn');
-    const smilePrompt = document.getElementById('smile-prompt'); // Получаем элемент подсказки
+    const smilePrompt = document.getElementById('smile-prompt');
+
+    // Проверка на наличие элементов, чтобы избежать ошибок
+    if (!glowingHeart || !quoteContainerSmile || !quoteTextSmile || !smileSceneBackBtn || !smilePrompt) {
+        console.error("Один или несколько элементов для сцены 'Планета Улыбки' не найдены!");
+        return;
+    }
 
     glowingHeart.onclick = () => {
-        glowingHeart.classList.add('flash');
+        glowingHeart.classList.add('flash'); // Предполагается наличие CSS класса .flash
         glowingHeart.onanimationend = () => glowingHeart.classList.remove('flash');
-        quoteTextSmile.classList.add('fading-out');
+
+        quoteTextSmile.classList.add('fading-out'); // Предполагается наличие CSS класса .fading-out
+
         setTimeout(() => {
-            const randomIndex = Math.floor(Math.random() * smileQuotes.length);
+            let randomIndex;
+            // Цикл гарантирует, что новый индекс не будет совпадать с предыдущим.
+            // Проверка (smileQuotes.length > 1) предотвращает бесконечный цикл, если в массиве всего одна фраза.
+            do {
+                randomIndex = Math.floor(Math.random() * smileQuotes.length);
+            } while (smileQuotes.length > 1 && randomIndex === lastSmileQuoteIndex);
+
+            // Обновляем индекс последней показанной цитаты
+            lastSmileQuoteIndex = randomIndex;
             quoteTextSmile.textContent = smileQuotes[randomIndex];
             quoteTextSmile.classList.remove('fading-out');
         }, 300);
 
         if (firstClickOnSmile) {
-            smilePrompt.classList.add('hidden'); // Скрываем подсказку при первом клике
-            quoteContainerSmile.classList.add('visible');
+            smilePrompt.classList.add('hidden'); // Предполагается наличие CSS класса .hidden
+            quoteContainerSmile.classList.add('visible'); // Предполагается наличие CSS класса .visible
             setTimeout(() => {
                 smileSceneBackBtn.classList.add('visible');
             }, 500);
@@ -74,14 +100,24 @@ function resetSmilePlanet() {
     const smileSceneBackBtn = document.getElementById('smile-scene-back-btn');
     const quoteTextSmile = document.querySelector('#planet-smile-scene .quote-text');
     const birdContainer = document.getElementById('bird-container');
-    const smilePrompt = document.getElementById('smile-prompt'); // Получаем элемент подсказки
+    const smilePrompt = document.getElementById('smile-prompt');
+
+    if (!quoteContainerSmile || !smileSceneBackBtn || !quoteTextSmile || !birdContainer || !smilePrompt) {
+        return; // Если элементы не найдены, ничего не делать
+    }
 
     quoteContainerSmile.classList.remove('visible');
     smileSceneBackBtn.classList.remove('visible');
     quoteTextSmile.textContent = "";
     firstClickOnSmile = true;
+
+    // Останавливаем создание новых птиц
     clearTimeout(birdIntervalId);
+    // Удаляем всех существующих птиц
     birdContainer.innerHTML = '';
+
+    // Сбрасываем индекс последней цитаты при сбросе сцены
+    lastSmileQuoteIndex = -1;
 
     // Показываем подсказку снова при сбросе сцены
     smilePrompt.classList.remove('hidden');
