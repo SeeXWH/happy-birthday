@@ -12,7 +12,8 @@ const smileQuotes = [
     "Люблю тебя❤️"
 ];
 const svgBirdHTML = `<svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24.000000 24.000000" preserveAspectRatio="xMidYMid meet"><g transform="translate(0.000000,24.000000) scale(0.100000,-0.100000)" stroke="none"><path d="M52 168 c-7 -7 -12 -28 -12 -48 0 -24 -6 -39 -20 -48 -11 -7 -20 -16 -20 -20 0 -11 111 2 137 16 12 7 37 12 57 12 19 0 37 4 40 9 9 13 -36 29 -70 24 -27 -4 -36 0 -59 31 -30 39 -35 42 -53 24z"/><path d="M132 168 c-8 -8 -9 -15 -1 -25 17 -20 29 -15 29 12 0 27 -9 32 -28 13z"/></g></svg>`;
-
+const bellSound = document.getElementById('bell-sound');
+if (!bellSound) console.error("Аудио-элемент с id='bell-sound' не найден!");
 // --- ЛОГИКА ПЛАНЕТЫ УЛЫБКИ ---
 let firstClickOnSmile = true;
 let birdIntervalId = null;
@@ -65,6 +66,10 @@ function startSmilePlanetLogic(goBackFunction) {
     }
 
     glowingHeart.onclick = () => {
+        if (bellSound) {
+            bellSound.currentTime = 0; // Перемотка в начало, если звук уже играл
+            bellSound.play().catch(e => console.log("Ошибка воспроизведения:", e));
+        }
         glowingHeart.classList.add('flash'); // Предполагается наличие CSS класса .flash
         glowingHeart.onanimationend = () => glowingHeart.classList.remove('flash');
 
