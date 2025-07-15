@@ -28,16 +28,19 @@ body {
     /* Добавляем возможность прокрутки, если текст длинный */
 }
 
+
 /* Контейнер для букв-символов */
 .lilya-ring-container {
-    overflow: hidden;
     padding-top: 700px;
+    overflow: hidden;
     position: relative;
     width: 350px;
     height: 30vh;
+    min-height: 300px;
     margin-bottom: 50px;
     flex-shrink: 0;
-    /* Предотвращает сжатие контейнера */
+    aspect-ratio: 1/1;
+    /* overflow: visible; */
 
     /* Анимация появления */
     opacity: 0;
@@ -91,7 +94,7 @@ body {
     font-size: 8.5em;
     rotate: 180deg;
     transform: scaleX(-1);
-    bottom: 100px;
+    bottom: 110px;
     right: 65px;
 }
 
