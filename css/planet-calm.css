@@ -247,12 +247,14 @@
 .crystal-interactive {
     position: absolute;
     cursor: pointer;
-    transition: transform 0.3s ease, filter 0.3s ease;
+    /* Убрали 'transform' из перехода, так как он больше не анимируется */
+    transition: filter 0.3s ease;
     transform-origin: 50% 100%;
 }
 
 .crystal-interactive:hover {
-    transform: scale(1.1);
+    /* Убрали увеличение при наведении, оставили только эффект свечения */
+    /* transform: scale(1.1); */
     filter: drop-shadow(0 0 25px #fff);
 }
 
@@ -289,18 +291,20 @@
 }
 
 .crystal-interactive.flash {
+    /* Анимация вспышки запускается, но сама анимация теперь пустая */
     animation: crystal-flash 0.4s ease-out;
 }
 
+/* Анимация очищена от 'transform', чтобы кристалл не двигался */
 @keyframes crystal-flash {
 
     0%,
     100% {
-        transform: scale(1);
+        /* transform: scale(1); */
     }
 
     50% {
-        transform: scale(1.2);
+        /* transform: scale(1.2); */
     }
 }
 
@@ -348,7 +352,6 @@
     transform: rotate(10deg);
     z-index: 9;
 }
-
 
 .foreground-hill {
     position: absolute;
