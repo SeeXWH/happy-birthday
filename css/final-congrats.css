@@ -22,7 +22,12 @@ body {
     align-items: center;
     transition: opacity 1.5s ease-in-out;
     padding: 20px;
-    overflow-y: auto;
+    overflow-y: scroll;
+}
+
+.lub-container {
+    padding-top: 700px;
+    padding-bottom: 30px;
 }
 
 
@@ -85,7 +90,7 @@ body {
     font-size: 8.5em;
     rotate: 180deg;
     transform: scaleX(-1);
-    bottom: 160px;
+    bottom: 140px;
     right: 65px;
 }
 
