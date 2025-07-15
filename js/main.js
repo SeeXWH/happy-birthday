@@ -1,4 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    // ИЗМЕНЕНИЕ: Добавлен блок для глобальной настройки громкости
+    //-------------------------------------------------------------
+    // Получаем все аудио элементы на странице
+    const allAudioElements = document.querySelectorAll('audio');
+
+    // Устанавливаем желаемый уровень громкости. 
+    // 1.0 - максимальная громкость, 0.0 - тишина.
+    // 0.5 = 50% громкости. Можете выбрать любое значение, например 0.4 или 0.7.
+    const globalVolume = 0.5;
+
+    // Применяем установленную громкость ко всем звукам
+    allAudioElements.forEach(audio => {
+        audio.volume = globalVolume;
+    });
+    //-------------------------------------------------------------
+
+
     // --- Получаем все элементы ---
     const introScene = document.getElementById('intro-scene');
     const lockscreenScene = document.getElementById('lockscreen-scene');
@@ -8,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const lockscreenTime = document.querySelector('.lockscreen-time');
     const lockscreenDate = document.querySelector('.lockscreen-date');
 
-    // ИЗМЕНЕНИЕ: Убрана переменная sendSound
     const notificationSound = document.getElementById('notification-sound');
     const magicSound = document.getElementById('magic-sound');
     const clickSound = document.getElementById('click-sound');
@@ -115,7 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     });
 
-    // ИЗМЕНЕНИЕ: Логика воспроизведения звука
     function appendMessage(messageData) {
         const messageElement = document.createElement('div');
         messageElement.classList.add('chat-message', messageData.type === 'my' ? 'my-message' : 'her-message');
@@ -149,14 +165,13 @@ document.addEventListener('DOMContentLoaded', () => {
         chatContainer.appendChild(messageElement);
         chatContainer.scrollTop = chatContainer.scrollHeight;
 
-        // Воспроизводим звук для ЛЮБОГО сообщения
         if (notificationSound) {
             notificationSound.currentTime = 0;
             notificationSound.play();
         }
     }
 
-    // --- АКТ III: ВСЕЛЕННАЯ (без изменений) ---
+    // --- АКТ III: ВСЕЛЕННАЯ ---
     function startUniverseScene() {
         universeWrapper.classList.add('visible');
         if (!starsContainer.hasChildNodes()) {
