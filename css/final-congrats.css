@@ -1,5 +1,14 @@
 /* --- СТИЛИ ДЛЯ ФИНАЛЬНОЙ СЦЕНЫ (ДИЗАЙН "КОЛЬЦО МАЯКОВСКОГО") --- */
 
+@font-face {
+    font-family: 'Geometric';
+    /* Название шрифта */
+    src: url('../assets/fonts/geometric.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 #final-congrats-scene {
     background-color: #0c0c0c;
     /* Слегка смягченный черный */
@@ -16,10 +25,11 @@
 
 /* Контейнер для букв-символов */
 .lilya-ring-container {
+    padding-top: 50vh;
     position: relative;
-    width: 250px;
-    height: 250px;
-    margin-bottom: 30px;
+    width: 500px;
+    height: 30vh;
+    margin-bottom: 70px;
     flex-shrink: 0;
     /* Предотвращает сжатие контейнера */
 
@@ -48,27 +58,36 @@
 /* Позиционируем каждую букву отдельно */
 
 #letter-l {
-    font-size: 10em;
+    font-family: 'Geometric';
+    position: absolute;
+    font-size: 8.5em;
+    rotate: -45deg;
     /* 160px */
-    top: -30px;
-    left: 50%;
+    /* top: 20px; */
+    bottom: 30%;
+    left: 35%;
     transform: translateX(-50%);
 }
 
 #letter-yu {
-    font-size: 8.5em;
-    /* 136px */
-    bottom: 0;
+    font-weight: 700;
     left: 10px;
+    position: absolute;
+    font-size: 7.5rem;
+    rotate: 90deg;
+    bottom: -12%;
+    left: 30%;
 }
 
 #letter-b {
-    font-size: 8.5em;
-    /* 136px */
-    bottom: 0;
+    font-family: 'Geometric';
     right: 10px;
+    position: absolute;
+    font-size: 8.5em;
+    rotate: 180deg;
     transform: scaleX(-1);
-    /* Зеркально отражаем букву "Я" */
+    bottom: 15%;
+    right: 30%;
 }
 
 
@@ -113,4 +132,9 @@
     font-size: 0.9em;
     opacity: 0;
     animation: fadeInText 2s 3.5s forwards;
+}
+
+.text-lu {
+    padding-left: 10px;
+    text-align: justify
 }
