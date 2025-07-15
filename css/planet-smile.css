@@ -1,15 +1,44 @@
 /* --- СЦЕНА: ПЛАНЕТА УЛЫБКИ --- */
 #planet-smile-scene {
     background: linear-gradient(to bottom, #fbc2eb 0%, #a6c1ee 100%);
+    overflow: hidden;
+    /* Предотвращает рывки при анимации элементов за пределами экрана */
 }
 
+/* --- ИЗМЕНЕННЫЕ СТИЛИ ДЛЯ КОНТЕЙНЕРА С ЦИТАТОЙ --- */
 #planet-smile-scene .quote-container {
-    bottom: 35%;
+    position: absolute;
+    width: 90%;
+    max-width: 500px;
+    top: 15%;
+    /* Конечное положение после анимации */
+    left: 50%;
+    text-align: center;
+    z-index: 10;
+
+    /* Начальное состояние: полностью скрыт над экраном */
+    opacity: 0;
+    transform: translate(-50%, -200%);
+    /* Начинаем анимацию далеко вверху */
+
+    /* Плавный переход для свойств opacity и transform */
+    transition: opacity 0.7s ease-out, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
+
+/* Новое правило для видимого состояния: плавно опускает контейнер на место */
+#planet-smile-scene .quote-container.visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+/* --- КОНЕЦ ИЗМЕНЕНИЙ --- */
+
 
 #planet-smile-scene .quote-text {
     font-family: 'Pacifico', cursive;
     font-size: 1.8em;
+    color: white;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .land {
@@ -455,5 +484,42 @@
     50% {
         transform: translate(-50%, -50%) scale(1.15);
         filter: drop-shadow(0 0 40px #fff);
+    }
+}
+
+/* СТИЛИ ДЛЯ ПОДСКАЗКИ */
+#smile-prompt {
+    position: absolute;
+    top: 60%;
+    /* Располагаем чуть ниже сердца */
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Comfortaa', cursive;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2em;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    z-index: 9;
+    pointer-events: none;
+    /* Чтобы не мешал клику на сердце */
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+    animation: pulse-prompt 3s infinite ease-in-out;
+}
+
+#smile-prompt.hidden {
+    opacity: 0;
+}
+
+@keyframes pulse-prompt {
+
+    0%,
+    100% {
+        transform: translateX(-50%) scale(1);
+        opacity: 0.9;
+    }
+
+    50% {
+        transform: translateX(-50%) scale(1.05);
+        opacity: 1;
     }
 }

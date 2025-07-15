@@ -48,6 +48,7 @@ function startSmilePlanetLogic(goBackFunction) {
     const quoteContainerSmile = document.querySelector('#planet-smile-scene .quote-container');
     const quoteTextSmile = document.querySelector('#planet-smile-scene .quote-text');
     const smileSceneBackBtn = document.getElementById('smile-scene-back-btn');
+    const smilePrompt = document.getElementById('smile-prompt'); // Получаем элемент подсказки
 
     glowingHeart.onclick = () => {
         glowingHeart.classList.add('flash');
@@ -58,7 +59,9 @@ function startSmilePlanetLogic(goBackFunction) {
             quoteTextSmile.textContent = smileQuotes[randomIndex];
             quoteTextSmile.classList.remove('fading-out');
         }, 300);
+
         if (firstClickOnSmile) {
+            smilePrompt.classList.add('hidden'); // Скрываем подсказку при первом клике
             quoteContainerSmile.classList.add('visible');
             setTimeout(() => {
                 smileSceneBackBtn.classList.add('visible');
@@ -74,6 +77,7 @@ function resetSmilePlanet() {
     const smileSceneBackBtn = document.getElementById('smile-scene-back-btn');
     const quoteTextSmile = document.querySelector('#planet-smile-scene .quote-text');
     const birdContainer = document.getElementById('bird-container');
+    const smilePrompt = document.getElementById('smile-prompt'); // Получаем элемент подсказки
 
     quoteContainerSmile.classList.remove('visible');
     smileSceneBackBtn.classList.remove('visible');
@@ -81,4 +85,7 @@ function resetSmilePlanet() {
     firstClickOnSmile = true;
     clearTimeout(birdIntervalId);
     birdContainer.innerHTML = '';
+
+    // Показываем подсказку снова при сбросе сцены
+    smilePrompt.classList.remove('hidden');
 }
