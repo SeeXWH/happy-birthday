@@ -1,36 +1,59 @@
 /* --- СЦЕНА: ПЛАНЕТА ПОДДЕРЖКИ (РИТМ ГАРМОНИИ) --- */
 
 #planet-support-scene {
-    /* ИЗМЕНЕНО: Используем CSS-переменные для плавного перехода */
-    --sky-gradient-start: #00001a;
-    --sky-gradient-end: #00001a;
+    --sky-gradient-start: #06020f;
+    --sky-gradient-end: #190f2c;
 
     background: linear-gradient(to bottom, var(--sky-gradient-start), var(--sky-gradient-end));
     overflow: hidden;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* ИЗМЕНЕНО: Добавляем плавный переход для фона */
-    transition: --sky-gradient-start 3s ease-in-out, --sky-gradient-end 3s ease-in-out;
 }
 
-/* ДОБАВЛЕНО: Класс для активации рассвета */
 #planet-support-scene.dawn-sky {
-    --sky-gradient-start: #87CEEB;
-    /* Небесно-голубой */
-    --sky-gradient-end: #FFB6C1;
-    /* Светло-розовый */
+    --sky-gradient-start: #2c1e4a;
+    --sky-gradient-end: #7b428c;
+    background: linear-gradient(to bottom, var(--sky-gradient-start) 0%, #4a286b 50%, var(--sky-gradient-end) 100%);
 }
 
+#support-bg-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.bg-star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: drift-star linear infinite;
+}
+
+@keyframes drift-star {
+    from {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(-100vh) scale(0.5);
+        opacity: 0;
+    }
+}
 
 #support-stars-container {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Идеальное центрирование контейнера */
     width: 500px;
     height: 250px;
 }
 
-/* Общие стили для звезд (без изменений) */
 .support-star {
     position: absolute;
     top: 50%;
@@ -40,21 +63,20 @@
     z-index: 10;
 }
 
-.star-gold {
+.star-pink {
     left: 10%;
     transform: translateY(-50%);
-    background: radial-gradient(circle, #fff8e1, #ffecb3, #ffd54f);
-    box-shadow: 0 0 20px #fff, 0 0 40px #ffc107, 0 0 70px #ff9800;
+    background: radial-gradient(circle, rgba(255, 221, 225, 0.9) 0%, #ff99ac 50%, #e68fac 100%);
+    box-shadow: 0 0 10px #fff, 0 0 20px rgba(255, 121, 198, 0.4), 0 0 35px rgba(230, 0, 115, 0.3);
 }
 
-.star-blue {
+.star-cyan {
     right: 10%;
     transform: translateY(-50%);
-    background: radial-gradient(circle, #e3f2fd, #bbdefb, #64b5f6);
-    box-shadow: 0 0 20px #fff, 0 0 40px #2196f3, 0 0 70px #0d47a1;
+    background: radial-gradient(circle, rgba(224, 255, 255, 0.9) 0%, #a2d2ff 50%, #79c7ff 100%);
+    box-shadow: 0 0 10px #fff, 0 0 20px rgba(139, 233, 253, 0.4), 0 0 35px rgba(0, 191, 255, 0.3);
 }
 
-/* Стили для SVG-контейнера и линий */
 #connection-svg-container {
     position: absolute;
     top: 0;
@@ -68,7 +90,6 @@
 .dynamic-line {
     stroke-width: 2px;
     fill: none;
-    /* ИЗМЕНЕНО: Цвет и тень теперь задаются в JS, здесь оставляем только анимацию */
     animation: fade-line 2.5s ease-in-out;
 }
 
@@ -92,24 +113,36 @@
     }
 }
 
-
-/* --- Анимации --- */
-
-/* ИЗМЕНЕНО: Волна теперь гарантированно в центре контейнера, что и является центром между звёзд */
+/* ИСПРАВЛЕНО: Центрирование пульса */
 #support-stars-container::after {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* Это центрирует элемент относительно родителя */
+    /* Это центрирует элемент до начала анимации */
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    box-shadow: 0 0 80px 40px rgba(200, 190, 255, 0.3);
+    box-shadow: 0 0 80px 40px rgba(200, 190, 255, 0.2);
     opacity: 0;
 }
 
+@keyframes light-wave {
+    from {
+        /* Добавляем центрирование внутрь анимации */
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0.8;
+    }
+
+    to {
+        /* Добавляем центрирование внутрь анимации */
+        transform: translate(-50%, -50%) scale(5);
+        opacity: 0;
+    }
+}
+
+/* Анимации пульсации звезд (без изменений) */
 @keyframes pulse-stars {
 
     0%,
@@ -124,18 +157,6 @@
     }
 }
 
-@keyframes light-wave {
-    from {
-        transform: scale(0.5);
-        opacity: 0.8;
-    }
-
-    to {
-        transform: scale(5);
-        opacity: 0;
-    }
-}
-
 .pulsing .support-star {
     animation: pulse-stars 2.5s ease-in-out infinite;
 }
@@ -144,13 +165,98 @@
     animation: light-wave 2.5s ease-out infinite;
 }
 
-/* Позиционирование текста и кнопки (без изменений) */
-#planet-support-scene .quote-container {
-    top: 25%;
+/* --- Новые позиции для текста и кнопки --- */
+
+#support-title {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Центрируем до начала анимации */
+    width: 100%;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: normal;
+    color: rgba(255, 255, 255, 0.7);
     z-index: 20;
+    opacity: 0;
+}
+
+#support-title.animate {
+    animation: fade-in-out-title 4s ease-in-out forwards;
+}
+
+/* ИСПРАВЛЕНО: Центрирование заголовка */
+@keyframes fade-in-out-title {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+
+    30% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    80% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
+
+#planet-support-scene .quote-container {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+    z-index: 20;
+    pointer-events: none;
+}
+
+#planet-support-scene .quote-text {
+    font-size: 1.8em;
+}
+
+#support-prompt-text {
+    position: absolute;
+    bottom: 12%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Comfortaa', sans-serif;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.2em;
+    pointer-events: none;
+    z-index: 20;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+    animation: pulse-prompt 3s infinite ease-in-out;
+}
+
+#support-prompt-text.hidden {
+    opacity: 0;
+}
+
+@keyframes pulse-prompt {
+
+    0%,
+    100% {
+        transform: translateX(-50%) scale(1);
+    }
+
+    50% {
+        transform: translateX(-50%) scale(1.05);
+    }
 }
 
 #planet-support-scene .scene-back-btn {
-    bottom: 20%;
+    bottom: 6%;
     z-index: 20;
 }

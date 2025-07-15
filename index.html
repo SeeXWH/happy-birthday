@@ -238,15 +238,24 @@
     </section>
 
     <section id="planet-support-scene" class="planet-scene">
+        <div id="support-bg-stars"></div>
+
+        <!-- ИЗМЕНЕНО: Заголовок теперь находится отдельно, над контейнером звезд -->
+        <h2 id="support-title">Твоя поддержка оживляет</h2>
+
         <div id="support-stars-container">
-            <div class="support-star star-gold"></div>
-            <!-- ИЗМЕНЕНО: Добавлен атрибут viewBox -->
+            <div class="support-star star-pink"></div>
             <svg id="connection-svg-container" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
-            <div class="support-star star-blue"></div>
+            <div class="support-star star-cyan"></div>
         </div>
+
+        <!-- Контейнер теперь только для динамической цитаты -->
         <div class="quote-container">
             <p class="quote-text"></p>
         </div>
+
+        <p id="support-prompt-text">Нажми на экран</p>
+
         <button id="support-scene-back-btn" class="scene-back-btn">Вернуться во вселенную</button>
     </section>
 
