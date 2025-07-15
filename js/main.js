@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const planetRomanceScene = document.getElementById('planet-romance-scene');
     const planetSupportScene = document.getElementById('planet-support-scene');
     const finalCongratsScene = document.getElementById('final-congrats-scene');
+    const restartButton = document.getElementById('restart-prompt');
 
     // --- СЦЕНАРИИ И ДАННЫЕ ---
     const chatScript = [{ type: 'her', text: 'С Днем Рождения, любимая❤️', needs_reply: true },
@@ -303,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Добавляем возможность перезапустить поздравление
-    finalCongratsScene.addEventListener('click', () => {
+    restartButton.addEventListener('click', () => {
         // Просто перезагружаем страницу, чтобы начать сначала
         location.reload();
     });
