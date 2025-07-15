@@ -74,7 +74,7 @@ function startCalmPlanetLogic(goBackFunction) {
     const quoteContainerCalm = document.querySelector('#planet-calm-scene .quote-container');
     const quoteTextCalm = document.querySelector('#planet-calm-scene .quote-text');
     const calmSceneBackBtn = document.getElementById('calm-scene-back-btn');
-    const calmPrompt = document.getElementById('calm-prompt'); // <<<--- ПОЛУЧАЕМ ЭЛЕМЕНТ ПОДСКАЗКИ
+    const calmPrompt = document.getElementById('calm-prompt');
 
     crystals.forEach(crystal => {
         crystal.onclick = () => {
@@ -98,12 +98,19 @@ function startCalmPlanetLogic(goBackFunction) {
             }, 300);
 
             if (firstClickOnCalm) {
-                calmPrompt.classList.add('hidden'); // <<<--- СКРЫВАЕМ ПОДСКАЗКУ ПРИ ПЕРВОМ КЛИКЕ
+                calmPrompt.classList.add('hidden');
                 quoteContainerCalm.classList.add('visible');
+                // --- ИЗМЕНЕНИЕ: Мы больше НЕ показываем здесь кнопку назад ---
+                firstClickOnCalm = false;
+            }
+
+            // --- НОВАЯ ЛОГИКА: Проверяем, все ли кристаллы активированы ---
+            const activatedCrystals = document.querySelectorAll('#planet-calm-scene .crystal-interactive.is-glowing');
+            if (activatedCrystals.length === crystals.length) {
+                // Задержка для красоты, чтобы кнопка не появлялась мгновенно
                 setTimeout(() => {
                     calmSceneBackBtn.classList.add('visible');
                 }, 500);
-                firstClickOnCalm = false;
             }
         };
     });
@@ -116,7 +123,7 @@ function resetCalmPlanet() {
     const quoteContainerCalm = document.querySelector('#planet-calm-scene .quote-container');
     const calmSceneBackBtn = document.getElementById('calm-scene-back-btn');
     const quoteTextCalm = document.querySelector('#planet-calm-scene .quote-text');
-    const calmPrompt = document.getElementById('calm-prompt'); // <<<--- ПОЛУЧАЕМ ЭЛЕМЕНТ ПОДСКАЗКИ
+    const calmPrompt = document.getElementById('calm-prompt');
 
     clearInterval(snowIntervalId);
     clearTimeout(penguinIntervalId);
@@ -126,7 +133,7 @@ function resetCalmPlanet() {
     quoteContainerCalm.classList.remove('visible');
     calmSceneBackBtn.classList.remove('visible');
     quoteTextCalm.textContent = "";
-    calmPrompt.classList.remove('hidden'); // <<<--- ПОКАЗЫВАЕМ ПОДСКАЗКУ СНОВА
+    calmPrompt.classList.remove('hidden');
     firstClickOnCalm = true;
 
     const crystals = document.querySelectorAll('#planet-calm-scene .crystal-interactive');
