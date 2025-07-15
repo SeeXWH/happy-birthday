@@ -1,0 +1,116 @@
+/* --- СТИЛИ ДЛЯ ФИНАЛЬНОЙ СЦЕНЫ (ДИЗАЙН "КОЛЬЦО МАЯКОВСКОГО") --- */
+
+#final-congrats-scene {
+    background-color: #0c0c0c;
+    /* Слегка смягченный черный */
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1.5s ease-in-out;
+    padding: 20px;
+    overflow-y: auto;
+    /* Добавляем возможность прокрутки, если текст длинный */
+}
+
+/* Контейнер для букв-символов */
+.lilya-ring-container {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    margin-bottom: 30px;
+    flex-shrink: 0;
+    /* Предотвращает сжатие контейнера */
+
+    /* Анимация появления */
+    opacity: 0;
+    animation: fadeInRing 2s 1s forwards;
+}
+
+@keyframes fadeInRing {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Общий стиль для каждой буквы */
+.ring-symbol {
+    position: absolute;
+    font-family: 'Poppins', sans-serif;
+    /* Более строгий шрифт для символов */
+    font-weight: 300;
+    /* Тонкое начертание, как на фото */
+    color: #fff;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+}
+
+/* Позиционируем каждую букву отдельно */
+
+#letter-l {
+    font-size: 10em;
+    /* 160px */
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#letter-yu {
+    font-size: 8.5em;
+    /* 136px */
+    bottom: 0;
+    left: 10px;
+}
+
+#letter-b {
+    font-size: 8.5em;
+    /* 136px */
+    bottom: 0;
+    right: 10px;
+    transform: scaleX(-1);
+    /* Зеркально отражаем букву "Я" */
+}
+
+
+/* Контейнер для финального текста */
+#final-text-container {
+    color: #fff;
+    text-align: center;
+    font-family: 'Comfortaa', sans-serif;
+    width: 100%;
+    max-width: 500px;
+    /* Ограничиваем ширину для читаемости */
+
+    /* Анимация появления текста */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInText 2s 1.8s forwards;
+}
+
+#final-text-container h1 {
+    font-size: 1.5em;
+    /* Сделаем заголовок чуть меньше */
+    margin-bottom: 25px;
+    font-weight: 700;
+    text-transform: uppercase;
+    /* Все буквы заглавные, как на фото */
+}
+
+#final-text-container p {
+    font-size: 1.1em;
+    line-height: 1.7;
+    text-align: left;
+    /* Выравнивание по левому краю для длинного текста */
+    opacity: 0.8;
+}
+
+/* Подсказка для перезапуска */
+#restart-prompt {
+    position: absolute;
+    bottom: 20px;
+    color: rgba(255, 255, 255, 0.3);
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 0.9em;
+    opacity: 0;
+    animation: fadeInText 2s 3.5s forwards;
+}

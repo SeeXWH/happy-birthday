@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const planetFutureScene = document.getElementById('planet-future-scene');
     const planetRomanceScene = document.getElementById('planet-romance-scene');
     const planetSupportScene = document.getElementById('planet-support-scene');
+    const finalCongratsScene = document.getElementById('final-congrats-scene');
 
     // --- СЦЕНАРИИ И ДАННЫЕ ---
     const chatScript = [{ type: 'her', text: 'С Днем Рождения, любимая❤️', needs_reply: true },
@@ -286,16 +287,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    finalStar.addEventListener('click', () => {
+    finalStar.addEventListener('click', async () => {
         if (clickSound) { clickSound.currentTime = 0; clickSound.play(); }
-        const finalData = contentData['final-star'];
-        transitionTitle.textContent = finalData.title;
-        transitionText.textContent = finalData.text;
-        transitionOverlay.classList.add('visible');
-        transitionOverlay.onclick = () => {
-            transitionOverlay.classList.remove('visible');
-            transitionText.textContent = "";
-            transitionOverlay.onclick = null;
-        };
+        if (magicSound) { magicSound.play(); }
+
+        // Плавно скрываем вселенную
+        universeScene.style.opacity = '0';
+
+        // Ждем завершения анимации затухания
+        await delay(1000);
+
+        // Скрываем сцену вселенной из потока и показываем финальную сцену
+        universeScene.classList.remove('visible');
+        finalCongratsScene.classList.add('visible');
+    });
+
+    // Добавляем возможность перезапустить поздравление
+    finalCongratsScene.addEventListener('click', () => {
+        // Просто перезагружаем страницу, чтобы начать сначала
+        location.reload();
     });
 });
